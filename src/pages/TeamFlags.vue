@@ -8,13 +8,12 @@
           :data="flags">
           <el-table-column type="expand">
             <template scope="props">
-                <quill-editor ref="myTextEditor"
-                              v-model="props.row.notes"
-                              :options="editorOption">
-                </quill-editor>
-                <el-button type="primary"
-                           class="update-notes-btn"
-                           @click="onSubmit('addFlagNote', props.row)">Update Team Notes</el-button>
+              <TextEditor v-model="props.row.notes"></TextEditor>
+              <el-button type="primary"
+                         class="update-notes-btn"
+                         @click="onSubmit(props.row)">
+                         Update Team Notes
+              </el-button>
             </template>
           </el-table-column>
           <el-table-column
@@ -45,64 +44,37 @@
     </el-row>
   </main-layout>
 </template>
+
 <style>
-.ql-container .ql-editor {
-  background-color: #fff;
-  min-height: 20em;
-  padding-bottom: 1em;
-  max-height: 25em;
-}
 .update-notes-btn {
   margin-top: 8px;
 }
 </style>
+
 <script>
-import Vue from 'vue'
-import VueQuillEditor from 'vue-quill-editor'
 import moment from 'moment-es6'
-
-// XXX Notes should be real time edited to prevent user to override teammate notes.
-
-Vue.use(VueQuillEditor)
+import TextEditor from '../components/TextEditor'
 
 export default {
   name: 'team-flags',
+  components: {
+    TextEditor
+  },
   data () {
     return {
       title: 'Team Flags',
       form: {
         notes: ''
-      },
-      editorOption: {
-        modules: {
-          toolbar: [
-            [{'size': ['small', false, 'large']}],
-            ['bold', 'italic'],
-            [{'list': 'ordered'}, {'list': 'bullet'}],
-            ['link']
-          ],
-          history: {
-            delay: 1000,
-            maxStack: 50,
-            userOnly: false
-          }
-        }
       }
     }
   },
   computed: {
     flags () {
-      return this.$store.state.teamFlags.slice(0, 200)
-    },
-    teams () {
-      return this.$store.state.adminTeams
-    },
-    editor () {
-      return this.$refs.myTextEditor.quillEditor
+      return this.$store.state.teamFlags
     }
   },
   methods: {
-    onSubmit (formName, flag) {
+    onSubmit (flag) {
       this.$store.dispatch('updateFlagNote', flag).then(response => {
         if (response.ok) {
           this.$message({
@@ -110,9 +82,12 @@ export default {
             type: 'success'
           })
         } else {
-          this.$message({
-            message: 'Server Error. Try again later!',
-            type: 'error'
+          response.text().then(message => {
+            const MAX_CHARS = 1000
+            this.$message({
+              message: message.trim() + `. Limited to ${MAX_CHARS} chars.`,
+              type: 'error'
+            })
           })
         }
       })
