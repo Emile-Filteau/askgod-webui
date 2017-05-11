@@ -1,7 +1,6 @@
 import Resources from '../resources'
 import * as actions from './action-types'
 import * as mutations from './mutation-types'
-import { IS_PRIVATE } from '../utils'
 
 /**
  * Initialize the store on application load
@@ -47,29 +46,6 @@ const submitFlag = async({ disptach }, flag) => {
   })
 }
 
-const initWebsocket = async({ dispatch }, ws) => {
-  // XXX Make use of middleware to log stuff
-  if (IS_PRIVATE) {
-    ws.onopen = (event) => {
-      // console.info('Socket connected', event)
-    }
-    ws.onerror = (event) => {
-      // console.log('Socket error', event)
-    }
-    ws.onmessage = (event) => {
-      // console.log('Socket event', event)
-      dispatch('websocketEvent', JSON.parse(event.data))
-    }
-  } else {
-    const REFRESH_INTERVAL = 60 * 1000
-    setInterval(() => {
-      // console.log(`Auto refresh every ${REFRESH_INTERVAL}`, event)
-      dispatch('fetchTimeline')
-      dispatch('fetchScoreboard')
-    }, REFRESH_INTERVAL)
-  }
-}
-
 /**
  * Trigger mutation on websocket event
  */
@@ -103,7 +79,6 @@ const updateCurrentRoute = async ({ commit }, newRoute) => {
 
 export default {
   initStore,
-  initWebsocket,
   fetchThing,
   getScores,
   websocketEvent,

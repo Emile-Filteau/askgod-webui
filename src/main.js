@@ -5,6 +5,7 @@ import locale from 'element-ui/lib/locale/lang/en'
 import { store } from './store/index'
 import MainLayout from './layouts/Main'
 import { routeByPath } from './routes'
+import { IS_PRIVATE } from './utils'
 
 // on www.nsec only
 const WEBSOCKET_URL = 'wss://askgod.nsec/1.0/events?type=timeline'
@@ -34,7 +35,6 @@ const app = new Vue({
   created () {
     // Init views data
     this.$store.dispatch('initStore')
-    this.$store.dispatch('initWebsocket', ws)
   }
 })
 
@@ -42,3 +42,21 @@ window.addEventListener('popstate', () => {
   let newRoute = routeByPath(window.location.pathname)
   app.$store.dispatch('updateCurrentRoute', newRoute)
 })
+
+if (IS_PRIVATE) {
+  ws.onopen = (event) => {
+    console.log('Socket connected', event)
+  }
+  ws.onerror = (event) => {
+    console.log('Socket error', event)
+  }
+  ws.onmessage = (event) => {
+    app.$store.dispatch('websocketEvent', JSON.parse(event.data))
+  }
+} else {
+  const REFRESH_INTERVAL = 60 * 1000
+  setInterval(() => {
+    app.$store.dispatch('fetchTimeline')
+    app.$store.dispatch('fetchScoreboard')
+  }, REFRESH_INTERVAL)
+}
