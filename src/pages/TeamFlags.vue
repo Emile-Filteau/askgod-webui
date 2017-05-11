@@ -23,6 +23,7 @@
             width="100">
           </el-table-column>
           <el-table-column
+            prop="submit_time"
             label="Date"
             sortable>
             <template scope="props">
