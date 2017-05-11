@@ -40,10 +40,15 @@ const updateFlagNote = async({ dispatch }, flag) => {
   let body = flag
   return Resources.update(`/team/flags/${flag.id}`, body)
 }
+
 const submitFlag = async({ disptach }, flag) => {
   return Resources.post('/team/flags', {
     flag: flag
   })
+}
+
+const updateCurrentRoute = async ({ commit }, newRoute) => {
+  await commit(mutations.SET_CURRENT_ROUTE, newRoute)
 }
 
 /**
@@ -51,6 +56,7 @@ const submitFlag = async({ disptach }, flag) => {
  */
 const wsEventTypes = {
   // Webscockets events
+  RELOAD: 'reload',
   TEAM_UPDATE: 'team-updated',
   TEAM_REMOVED: 'team-removed',
   SCORE_UPDATED: 'score-updated'
@@ -70,11 +76,15 @@ const websocketEvent = async ({ dispatch, commit }, data) => {
       commit(mutations.UPDATE_TIMELINE, data.metadata)
       dispatch(actions.SET_SCOREBOARD)
       break
-  }
-}
 
-const updateCurrentRoute = async ({ commit }, newRoute) => {
-  await commit(mutations.SET_CURRENT_ROUTE, newRoute)
+    case wsEventTypes.RELOAD:
+      dispatch(actions.SET_SCOREBOARD)
+      dispatch(actions.SET_TIMELINE)
+      break
+
+    default:
+      console.error('Unsupported event type', data.metadata.type)
+  }
 }
 
 export default {
