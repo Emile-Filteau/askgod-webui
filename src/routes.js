@@ -18,15 +18,15 @@ export const ROUTES = {
     index: 2
   }],
   is_team: [{
-    component: 'TeamSettings',
-    path: '/scoreboard/team-settings',
-    name: 'Team Settings',
-    index: 3
-  }, {
     component: 'TeamFlags',
     path: '/scoreboard/team-flags',
-    name: 'Team Flags',
+    name: 'Flags',
     index: 4
+  }, {
+    component: 'TeamSettings',
+    path: '/scoreboard/team-settings',
+    name: 'Settings',
+    index: 3
   }],
   is_admin: [{
     component: 'Teams',
