@@ -31,17 +31,17 @@ export const ROUTES = {
   is_admin: [{
     component: 'Teams',
     path: '/scoreboard/teams',
-    name: 'Admin Teams',
+    name: 'Teams',
     index: 5
   }, {
     component: 'AdminFlags',
     path: '/scoreboard/admin-flags',
-    name: 'Admin Flags',
+    name: 'Flags',
     index: 6
   }, {
     component: 'AdminScores',
     path: '/scoreboard/admin-scores',
-    name: 'Admin Scores',
+    name: 'Scores',
     index: 7
   }]
 }
