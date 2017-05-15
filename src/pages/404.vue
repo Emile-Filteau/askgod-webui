@@ -10,6 +10,7 @@
 <style scoped>
 .theme-color {
   background-color: #1c75bc;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: white;
 }
 a {
