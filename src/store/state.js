@@ -1,7 +1,12 @@
 import { routeByPath } from '../routes'
 export default {
   app: {
-    currentRoute: routeByPath(window.location.pathname)
+    currentRoute: routeByPath(window.location.pathname),
+    currentUser: {
+      timeline: {
+        settings: {}
+      }
+    }
   },
   settings: {
     is_admin: false,

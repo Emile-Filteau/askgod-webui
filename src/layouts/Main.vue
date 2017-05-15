@@ -2,9 +2,12 @@
   <div class="wrapper">
     <header>
       <VLink href="/scoreboard/"><img src="../assets/nsec_logo-white.svg" class="nsec-logo" alt="NorthSec" /></VLink>
-      <ul class="header-operations" v-if="settings.is_team">
-        <li>
+      <ul class="header-operations">
+        <li v-if="settings.is_team">
           <SubmitFlagDialog></SubmitFlagDialog>
+        </li>
+        <li>
+          <el-button type="primary" @click="dialogVisible = true">Screen options</el-button>
         </li>
       </ul>
     </header>
@@ -17,6 +20,7 @@
         <slot></slot>
       </el-col>
     </el-row>
+    <TimelineSettingsDialog v-model="dialogVisible"></TimelineSettingsDialog>
   </div>
 </template>
 
@@ -24,6 +28,7 @@
 import Breadcrumb from '../components/Breadcrumb'
 import Sidebar from '../components/Sidebar'
 import SubmitFlagDialog from '../components/SubmitFlagDialog'
+import TimelineSettingsDialog from '../components/TimelineSettingsDialog'
 import VLink from '../components/VLink'
 
 export default {
@@ -32,7 +37,13 @@ export default {
     Breadcrumb,
     Sidebar,
     SubmitFlagDialog,
+    TimelineSettingsDialog,
     VLink
+  },
+  data () {
+    return {
+      dialogVisible: false
+    }
   },
   computed: {
     settings () {
@@ -83,7 +94,6 @@ header {
 .header-operations {
   display: inline-block;
   float: right;
-  padding-right: 30px;
   height: 100%;
   margin: 0;
 }
@@ -91,8 +101,6 @@ header {
   color: #fff;
   display: inline-block;
   vertical-align: middle;
-  padding: 0 10px;
-  margin: 0 10px;
   line-height: 60px;
   cursor: pointer;
 }
