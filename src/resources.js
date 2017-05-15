@@ -2,7 +2,7 @@ import utils, { IS_PUBLIC } from './utils'
 
 const API_URL = utils.getApiURL()
 const VALID_API_RESOURCES = [
-  // Settings
+  // Status
   '',
   // Public related
   '/scoreboard',
@@ -20,7 +20,7 @@ export default {
   fetch (thing) {
     // This is only for the public version
     if (!VALID_API_RESOURCES.includes(thing)) {
-      console.error('Not a valid thing to fetch', thing)
+      console.error('Not a valid resource', thing)
       return false
     }
     return fetch(`${API_URL}${thing}${IS_PUBLIC ? '/index.json' : ''}`)
