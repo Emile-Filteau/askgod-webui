@@ -1,6 +1,6 @@
 <template type="text/html">
   <el-tooltip :disabled="!settings.board_read_only" class="item" effect="dark" content="You cannot submit flag at this time" placement="bottom">
-    <el-button type="primary" @click="submitFlag" :disabled="settings.board_read_only">Submit Flag</el-button>
+    <el-button type="primary" icon="plus" @click="submitFlag" :disabled="settings.board_read_only">Submit Flag</el-button>
   </el-tooltip>
 </template>
 

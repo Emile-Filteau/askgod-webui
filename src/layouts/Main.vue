@@ -1,18 +1,20 @@
 <template type="text/html">
   <div class="wrapper">
     <header>
-      <VLink href="/scoreboard/"><img src="../assets/nsec_logo-white.svg" class="nsec-logo" alt="NorthSec" /></VLink>
+      <VLink href="/scoreboard/">
+        <img src="../assets/nsec_logo-white.svg" class="nsec-logo" alt="NorthSec logo" />
+      </VLink>
       <ul class="header-operations">
         <li v-if="settings.is_team">
           <SubmitFlagDialog></SubmitFlagDialog>
         </li>
         <li>
-          <el-button type="primary" @click="dialogVisible = true">Screen options</el-button>
+          <el-button type="primary" icon="setting" @click="dialogVisible = true">Screen options</el-button>
         </li>
       </ul>
     </header>
     <el-row class="container">
-      <el-col class="menu" :xs="4" :span="3" >
+      <el-col class="menu" :xs="4" :span="3">
         <sidebar></sidebar>
       </el-col>
       <el-col class="content" :xs="20" :span="21">
@@ -36,8 +38,8 @@ export default {
   components: {
     Breadcrumb,
     Sidebar,
-    SubmitFlagDialog,
     ScreenOptionsDialog,
+    SubmitFlagDialog,
     VLink
   },
   data () {
