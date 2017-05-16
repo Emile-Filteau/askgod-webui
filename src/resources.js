@@ -1,4 +1,4 @@
-import utils, { IS_PUBLIC } from './utils'
+import utils, { IS_PRIVATE } from './utils'
 
 const API_URL = utils.getApiURL()
 const VALID_API_RESOURCES = [
@@ -23,10 +23,10 @@ export default {
       console.error('Not a valid resource', thing)
       return false
     }
-    return fetch(`${API_URL}${thing}${IS_PUBLIC ? '/index.json' : ''}`)
+    return fetch(`${API_URL}${thing}${!IS_PRIVATE ? '/index.json' : ''}`)
       .then(r => r.json())
       .then(data => data)
-      .catch(e => console.log(`Fetch ${thing || '/1.0'} failed!`))
+      .catch(e => console.log(`Fetch ${thing || 'status'} failed!`))
   },
   update (thing, body) {
     return fetch(`${API_URL}${thing}`, {

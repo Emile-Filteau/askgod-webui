@@ -29,7 +29,7 @@ export const colors = [
 export const API_ENDPOINTS = {
   private: 'https://askgod.nsec/1.0',
   public: 'https://www.nsec.io/scoreboard/1.0',
-  dev: '/static'
+  dev: '/static/1.0'
 }
 
 export const ORIGIN = {

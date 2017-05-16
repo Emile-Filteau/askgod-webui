@@ -1,0 +1,32 @@
+[
+	{
+		"team": {
+			"name": "NorthSec",
+			"country": "CA",
+			"website": "https://www.nsec.io",
+			"id": 1
+		},
+		"value": 0,
+		"last_submit_time": "0001-01-01T00:00:00Z"
+	},
+	{
+		"team": {
+			"name": "The Underdogs 1",
+			"country": "CA",
+			"website": "https://www.nsec.io",
+			"id": 45
+		},
+		"value": 0,
+		"last_submit_time": "0001-01-01T00:00:00Z"
+	},
+	{
+		"team": {
+			"name": "The Underdogs 2",
+			"country": "CA",
+			"website": "https://www.nsec.io",
+			"id": 46
+		},
+		"value": 0,
+		"last_submit_time": "0001-01-01T00:00:00Z"
+	}
+]
