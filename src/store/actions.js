@@ -56,6 +56,8 @@ const updateCurrentRoute = async ({ commit }, newRoute) => {
  */
 const wsEventTypes = {
   // Webscockets events
+  CONNECTED: 'connected',
+  ERROR: 'error',
   RELOAD: 'reload',
   TEAM_UPDATE: 'team-updated',
   TEAM_REMOVED: 'team-removed',
@@ -80,6 +82,14 @@ const websocketEvent = async ({ dispatch, commit }, data) => {
     case wsEventTypes.RELOAD:
       dispatch(actions.SET_SCOREBOARD)
       dispatch(actions.SET_TIMELINE)
+      break
+
+    case wsEventTypes.CONNECTED:
+      console.log('Socket connected', data.event)
+      break
+
+    case wsEventTypes.ERROR:
+      console.log('Socket error', data.event)
       break
 
     default:
