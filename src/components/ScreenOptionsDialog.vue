@@ -29,7 +29,7 @@ const TIMELINE_FITLERS = {
 }
 
 export default {
-  name: 'timeline-settings-dialog',
+  name: 'screen-options-dialog',
   props: ['value'],
   computed: {
     topTeamsOptions () {

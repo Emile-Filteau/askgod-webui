@@ -20,7 +20,7 @@
         <slot></slot>
       </el-col>
     </el-row>
-    <TimelineSettingsDialog v-model="dialogVisible"></TimelineSettingsDialog>
+    <ScreenOptionsDialog v-model="dialogVisible"></ScreenOptionsDialog>
   </div>
 </template>
 
@@ -28,7 +28,7 @@
 import Breadcrumb from '../components/Breadcrumb'
 import Sidebar from '../components/Sidebar'
 import SubmitFlagDialog from '../components/SubmitFlagDialog'
-import TimelineSettingsDialog from '../components/TimelineSettingsDialog'
+import ScreenOptionsDialog from '../components/ScreenOptionsDialog'
 import VLink from '../components/VLink'
 
 export default {
@@ -37,7 +37,7 @@ export default {
     Breadcrumb,
     Sidebar,
     SubmitFlagDialog,
-    TimelineSettingsDialog,
+    ScreenOptionsDialog,
     VLink
   },
   data () {
