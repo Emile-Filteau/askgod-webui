@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="activeIndex"
+  <el-menu :default-active="activePageIndex"
     class="el-menu-vertical">
     <el-menu-item-group title="Public">
       <el-menu-item
@@ -49,7 +49,7 @@
 </style>
 <script>
 import { ROUTES } from '../routes'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'sidebar',
@@ -57,12 +57,11 @@ export default {
     routes () {
       return ROUTES
     },
-    activeIndex () {
-      let route = this.$store.state.app.currentRoute
-      return route ? route.index.toString() : '1'
-    },
     ...mapState([
       'settings'
+    ]),
+    ...mapGetters([
+      'activePageIndex'
     ])
   },
   methods: {
