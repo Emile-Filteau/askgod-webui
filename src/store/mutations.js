@@ -23,7 +23,7 @@ export default {
   },
   [types.SET_ADMIN_FLAGS] (state, data) {
     if (data) {
-      state.flags = data
+      state.adminFlags = data
     }
   },
   [types.SET_STATUS] (state, data) {

@@ -25,8 +25,8 @@ export default {
     website: '',
     country: 'CA'
   },
-  flags: [],
   teamFlags: [],
+  adminFlags: [],
   adminScores: [],
   adminTeams: [],
   scoreboard: [],

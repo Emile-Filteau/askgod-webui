@@ -106,7 +106,7 @@ export default {
   },
   computed: {
     flags () {
-      return this.$store.state.flags.slice(0, this.query.limitTo)
+      return this.$store.state.adminFlags.slice(0, this.query.limitTo)
     }
   },
   methods: {
