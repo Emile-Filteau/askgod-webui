@@ -49,6 +49,7 @@
 </style>
 <script>
 import { ROUTES } from '../routes'
+import { mapState } from 'vuex'
 
 export default {
   name: 'sidebar',
@@ -60,9 +61,9 @@ export default {
       let route = this.$store.state.app.currentRoute
       return route ? route.index.toString() : '1'
     },
-    settings () {
-      return this.$store.state.settings
-    }
+    ...mapState([
+      'settings'
+    ])
   },
   methods: {
     go (newRoute) {

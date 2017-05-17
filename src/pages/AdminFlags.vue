@@ -5,7 +5,7 @@
         <el-table
           empty-text="Loading..."
           :default-sort="{prop: 'id', order: 'ascending'}"
-          :data="flags">
+          :data="adminFlags">
           <el-table-column
             prop="id"
             label="ID"
@@ -91,23 +91,17 @@
 
 <script>
 import * as actions from '../store/action-types'
+import { mapState } from 'vuex'
 
 export default {
   name: 'admin-flags',
-  data () {
-    return {
-      query: {
-        limitTo: 25
-      }
-    }
-  },
   created () {
     this.$store.dispatch(actions.SET_ADMIN_FLAGS)
   },
   computed: {
-    flags () {
-      return this.$store.state.adminFlags.slice(0, this.query.limitTo)
-    }
+    ...mapState([
+      'adminFlags'
+    ])
   },
   methods: {
     formatTag (tag) {
@@ -116,8 +110,9 @@ export default {
     filterTag (value, row) {
       return Object.values(row.tags).includes(`author:${value}`)
     },
+    /// Getters AdminFlags.TagFilter
     getFilters (key) {
-      let values = this.flags.map(f => this.formatTag(f.tags[key]))
+      let values = this.adminFlags.map(f => this.formatTag(f.tags[key]))
       return [...new Set(values)].map(v => ({
         text: v,
         value: v

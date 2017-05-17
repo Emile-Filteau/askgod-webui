@@ -5,13 +5,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'submit-flag-dialog',
-  computed: {
-    settings () {
-      return this.$store.state.settings
-    }
-  },
+  computed: mapState([
+    'settings'
+  ]),
   methods: {
     submitFlag () {
       this.$prompt('Enter your flag', 'Flag submission', {

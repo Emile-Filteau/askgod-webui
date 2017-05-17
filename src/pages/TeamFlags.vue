@@ -5,7 +5,7 @@
         <el-table
           empty-text="No valid flags submitted"
           :default-sort="{prop: 'id', order: 'descending'}"
-          :data="flags">
+          :data="teamFlags">
           <el-table-column type="expand">
             <template scope="props">
               <TextEditor v-model="props.row.notes"></TextEditor>
@@ -55,6 +55,7 @@
 <script>
 import moment from 'moment-es6'
 import TextEditor from '../components/TextEditor'
+import { mapState } from 'vuex'
 
 export default {
   name: 'team-flags',
@@ -69,11 +70,9 @@ export default {
       }
     }
   },
-  computed: {
-    flags () {
-      return this.$store.state.teamFlags
-    }
-  },
+  computed: mapState([
+    'teamFlags'
+  ]),
   methods: {
     onSubmit (flag) {
       this.$store.dispatch('updateFlagNote', flag).then(response => {

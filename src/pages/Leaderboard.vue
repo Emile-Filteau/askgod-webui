@@ -54,6 +54,7 @@
 <script>
 import moment from 'moment-es6'
 import emojiFlags from 'emoji-flags'
+import { mapState } from 'vuex'
 
 export default {
   name: 'leaderboard',
@@ -62,11 +63,9 @@ export default {
       title: 'Leaderboard'
     }
   },
-  computed: {
-    scoreboard () {
-      return this.$store.state.scoreboard
-    }
-  },
+  computed: mapState([
+    'scoreboard'
+  ]),
   methods: {
     formatDate: function (date) {
       return `${moment(date).fromNow()} @ ${moment(date).format('LTS')}`

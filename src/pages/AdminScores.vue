@@ -5,7 +5,7 @@
         <el-table
           empty-text="Loading..."
           :default-sort="{prop: 'submit_time', order: 'descending'}"
-          :data="scores">
+          :data="adminScores">
           <el-table-column
             prop="id"
             label="ID"
@@ -52,6 +52,7 @@
 
 <script>
 import moment from 'moment-es6'
+import { mapState } from 'vuex'
 
 export default {
   name: 'admin-scores',
@@ -59,19 +60,17 @@ export default {
     this.$store.dispatch('getScores')
   },
   computed: {
-    scores () {
-      return this.$store.state.adminScores
-    },
-    teams () {
-      return this.$store.state.adminTeams
-    }
+    ...mapState([
+      'adminScores',
+      'adminTeams'
+    ])
   },
   methods: {
     formatDate (date) {
       return `${moment(date).fromNow()} @ ${moment(date).format('LTS')}`
     },
     getTeamFilters () {
-      return this.teams.map(v => ({
+      return this.adminTeams.map(v => ({
         text: v.name,
         value: v.id
       }))
@@ -80,8 +79,8 @@ export default {
       return row.team_id === value
     },
     getTeamName (teamId) {
-      let index = this.teams.findIndex(t => t.id === teamId)
-      return this.teams[index].name
+      let index = this.adminTeams.findIndex(t => t.id === teamId)
+      return this.adminTeams[index].name
     }
   }
 }
