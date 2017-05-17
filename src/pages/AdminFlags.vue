@@ -100,7 +100,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'adminFlags'
+      'adminFlags',
+      'flagTagsDict'
     ])
   },
   methods: {
@@ -110,12 +111,10 @@ export default {
     filterTag (value, row) {
       return Object.values(row.tags).includes(`author:${value}`)
     },
-    /// Getters AdminFlags.TagFilter
     getFilters (key) {
-      let values = this.adminFlags.map(f => this.formatTag(f.tags[key]))
-      return [...new Set(values)].map(v => ({
-        text: v,
-        value: v
+      return [...this.flagTagsDict[key] || []].map(value => ({
+        text: value,
+        value: value
       }))
     }
   }

@@ -32,6 +32,7 @@ export default {
   },
   // is_admin
   adminFlags: [],
+  flagTagsDict: {},
   adminScores: [],
   adminTeams: [],
   // is_guest

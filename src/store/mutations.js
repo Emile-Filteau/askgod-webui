@@ -24,6 +24,19 @@ export default {
   [types.SET_ADMIN_FLAGS] (state, data) {
     if (data) {
       state.adminFlags = data
+
+      // Time to builds tags dictionnary
+      for (let i = 0; i < data.length; i++) {
+        var flagTags = data[i].tags
+        Object.keys(flagTags).map(tagType => {
+          // Create new set for undefined tag type
+          if (!state.flagTagsDict[tagType]) {
+            state.flagTagsDict[tagType] = new Set()
+          }
+          let tagName = flagTags[tagType].split(':').pop()
+          state.flagTagsDict[tagType].add(tagName)
+        })
+      }
     }
   },
   [types.SET_STATUS] (state, data) {
