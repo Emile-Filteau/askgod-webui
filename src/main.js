@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import '../theme/index.css' // Custom generated styles
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
+
+import '../theme/index.css' // Custom generated styles
 import { store } from './store/index'
 import MainLayout from './layouts/Main'
 import { routeByPath } from './routes'
