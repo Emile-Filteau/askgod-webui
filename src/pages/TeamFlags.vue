@@ -27,7 +27,7 @@
             label="Date"
             sortable>
             <template scope="props">
-              {{ formatDate(props.row.submit_time) }}
+              {{ dateFromNowLTS(props.row.submit_time) }}
             </template>
           </el-table-column>
           <el-table-column
@@ -53,9 +53,8 @@
 </style>
 
 <script>
-import moment from 'moment-es6'
 import TextEditor from '../components/TextEditor'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'team-flags',
@@ -70,9 +69,14 @@ export default {
       }
     }
   },
-  computed: mapState([
-    'teamFlags'
-  ]),
+  computed: {
+    ...mapState([
+      'teamFlags'
+    ]),
+    ...mapGetters([
+      'dateFromNowLTS'
+    ])
+  },
   methods: {
     onSubmit (flag) {
       this.$store.dispatch('updateFlagNote', flag).then(response => {
@@ -91,9 +95,6 @@ export default {
           })
         }
       })
-    },
-    formatDate (date) {
-      return `${moment(date).fromNow()} @ ${moment(date).format('LTS')}`
     }
   }
 }

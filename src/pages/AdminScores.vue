@@ -25,7 +25,7 @@
             label="Date"
             sortable>
             <template scope="props">
-              {{ formatDate(props.row.submit_time) }}
+              {{ dateFromNowLTS(props.row.submit_time) }}
             </template>
           </el-table-column>
           <el-table-column
@@ -51,8 +51,7 @@
 </template>
 
 <script>
-import moment from 'moment-es6'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'admin-scores',
@@ -63,12 +62,12 @@ export default {
     ...mapState([
       'adminScores',
       'adminTeams'
+    ]),
+    ...mapGetters([
+      'dateFromNowLTS'
     ])
   },
   methods: {
-    formatDate (date) {
-      return `${moment(date).fromNow()} @ ${moment(date).format('LTS')}`
-    },
     getTeamFilters () {
       return this.adminTeams.map(v => ({
         text: v.name,

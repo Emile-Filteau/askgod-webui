@@ -33,7 +33,7 @@
             label="Last Flag">
             <template scope="props">
               <span v-if="isValidDate(props.row.last_submit_time)">
-                {{ formatDate(props.row.last_submit_time) }}
+                {{ dateFromNowLTS(props.row.last_submit_time) }}
               </span>
               <em v-else>N/A</em>
             </template>
@@ -52,9 +52,8 @@
 </template>
 
 <script>
-import moment from 'moment-es6'
 import emojiFlags from 'emoji-flags'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'leaderboard',
@@ -63,13 +62,15 @@ export default {
       title: 'Leaderboard'
     }
   },
-  computed: mapState([
-    'scoreboard'
-  ]),
+  computed: {
+    ...mapState([
+      'scoreboard'
+    ]),
+    ...mapGetters([
+      'dateFromNowLTS'
+    ])
+  },
   methods: {
-    formatDate: function (date) {
-      return `${moment(date).fromNow()} @ ${moment(date).format('LTS')}`
-    },
     isValidDate: function (date) {
       return date !== '0001-01-01T00:00:00Z'
     },
