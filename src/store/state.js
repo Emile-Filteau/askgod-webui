@@ -38,5 +38,27 @@ export default {
   scoreboard: [],
   timeline: {
     datasets: []
+  },
+  timelineChartOptions: {
+    legend: {
+      position: 'bottom'
+    },
+    scales: {
+      xAxes: [{
+        type: 'time',
+        time: {
+          unit: 'hour',
+          unitStepSize: 2,
+          displayFormats: {
+            hour: 'h:mm a'
+          }
+        },
+        ticks: {
+          autoSkip: true,
+          autoSkipPadding: 15,
+          maxRotation: 0
+        }
+      }]
+    }
   }
 }
