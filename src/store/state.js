@@ -1,13 +1,16 @@
 import { routeByPath } from '../routes'
+
 export default {
+  // App related
   app: {
     currentRoute: routeByPath(window.location.pathname),
-    currentUser: {
-      timeline: {
-        settings: {}
-      }
+    screenOptions: {
+      showTeams: 'All',
+      showLeaders: false,
+      refreshInterval: 60
     }
   },
+  // API Status
   settings: {
     is_admin: false,
     is_team: false,
@@ -20,15 +23,18 @@ export default {
       board_hide_others: false
     }
   },
+  // is_team
+  teamFlags: [],
   myTeam: {
     name: '',
     website: '',
     country: 'CA'
   },
-  teamFlags: [],
+  // is_admin
   adminFlags: [],
   adminScores: [],
   adminTeams: [],
+  // is_guest
   scoreboard: [],
   timeline: {
     datasets: []
