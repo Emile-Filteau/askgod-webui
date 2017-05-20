@@ -108,7 +108,8 @@ export default {
 
     Notification.success({
       title: 'Yupppyyyy!',
-      message: `Team ${meta.team.name} scored ${meta.score.value} points`
+      message: `Team ${meta.team.name} scored ${meta.score.value} points`,
+      duration: 10 * 1000
     })
   },
   [types.SET_CURRENT_ROUTE] (state, newRoute) {
