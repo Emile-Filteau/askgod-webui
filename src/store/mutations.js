@@ -80,28 +80,36 @@ export default {
     }
   },
   [types.UPDATE_TIMELINE] (state, meta) {
-    let index = state.timeline.datasets.findIndex(element => element.teamId === meta.teamid)
+    var index = state.timeline.datasets.findIndex(element => element.teamId === meta.teamid)
+    var newTimeline = state.timeline
 
     if (index >= 0) {
-      state.timeline.datasets[index].data = [].concat(
-        state.timeline.datasets[index].data, [{
+      // Append new score if team present in dataset
+      newTimeline.datasets[index].data = [].concat(
+        newTimeline.datasets[index].data,
+        [{
           x: moment(meta.score.submit_time),
           y: meta.score.total
-        }])
-      // Sort by total score
-      state.timeline.datasets.sort(function (a, b) {
-        return b.data[b.data.length - 1].y - a.data[a.data.length - 1].y
-      })
-      // Make it a new reference so the changes can be propagated
-      state.timeline = Object.assign({}, state.timeline)
-
-      Notification.success({
-        title: 'Yupppyyyy!',
-        message: `Team ${meta.team.name} scored ${meta.score.total} points`
-      })
+        }]
+      )
     } else {
-      throw new Error('Oh oh, an error has occured. Invalid team ID')
+      // Append the team to the dataset
+      let newIndex = newTimeline.datasets.length
+      newTimeline.datasets[newIndex] = utils.buildChartDataset(meta.team, meta.score)
     }
+
+    // Sort by total score
+    newTimeline.datasets.sort(function (a, b) {
+      return b.data[b.data.length - 1].y - a.data[a.data.length - 1].y
+    })
+
+    // Make it a new reference so the changes can be propagated
+    state.timeline = newTimeline
+
+    Notification.success({
+      title: 'Yupppyyyy!',
+      message: `Team ${meta.team.name} scored ${meta.score.value} points`
+    })
   },
   [types.SET_CURRENT_ROUTE] (state, newRoute) {
     state.app.currentRoute = newRoute
