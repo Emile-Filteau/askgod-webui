@@ -28,12 +28,13 @@ export const ROUTES = {
     name: 'Settings',
     index: 3
   }],
+  // {
+  //   component: 'Teams',
+  //   path: '/scoreboard/teams',
+  //   name: 'Teams',
+  //   index: 5
+  // },
   is_admin: [{
-    component: 'Teams',
-    path: '/scoreboard/teams',
-    name: 'Teams',
-    index: 5
-  }, {
     component: 'AdminFlags',
     path: '/scoreboard/admin-flags',
     name: 'Flags',
