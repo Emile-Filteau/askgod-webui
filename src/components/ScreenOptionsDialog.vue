@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Timeline Settings" :visible.sync="this.value">
+  <el-dialog title="Screen Options" :visible.sync="this.value">
     <el-form :model="form">
       <el-form-item label="Teams" :label-width="formLabelWidth">
         <el-select v-model="form.showTeams" placeholder="Teams">
@@ -10,6 +10,13 @@
             :value="item.value">
           </el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="Start Time" :label-width="formLabelWidth">
+        <el-date-picker
+          v-model="form.startTime"
+          type="datetime"
+          placeholder="Select date and time">
+        </el-date-picker>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">

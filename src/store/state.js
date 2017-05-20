@@ -6,6 +6,7 @@ export default {
     currentRoute: routeByPath(window.location.pathname),
     screenOptions: {
       showTeams: 'All',
+      startTime: null,
       showLeaders: false,
       refreshInterval: 60
     }

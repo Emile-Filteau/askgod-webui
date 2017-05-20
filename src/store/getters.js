@@ -15,6 +15,7 @@ export default {
       labels: []
     }
 
+    // Show Teams
     switch (screenOptions.showTeams) {
       case '5':
         timeline.datasets = state.timeline.datasets.slice(0, 5)
@@ -26,6 +27,16 @@ export default {
         timeline = {
           datasets: state.timeline.datasets
         }
+    }
+
+    // Filter datasets by startTime
+    if (screenOptions.startTime) {
+      const startTime = moment(screenOptions.startTime)
+      timeline.datasets.map((obj) => {
+        obj.data = obj.data.filter(function (entry) {
+          return entry.x.isAfter(startTime)
+        })
+      })
     }
 
     return timeline
