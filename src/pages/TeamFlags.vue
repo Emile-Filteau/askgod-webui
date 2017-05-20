@@ -17,18 +17,16 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="id"
-            label="ID"
-            sortable
-            width="100">
-          </el-table-column>
-          <el-table-column
             prop="submit_time"
             label="Date"
             sortable>
             <template scope="props">
               {{ dateFromNowLTS(props.row.submit_time) }}
             </template>
+          </el-table-column>
+          <el-table-column
+            prop="description"
+            label="Description">
           </el-table-column>
           <el-table-column
             prop="return_string"
