@@ -1,3 +1,4 @@
+import { Notification } from 'element-ui'
 import moment from 'moment-es6'
 import utils from '../utils'
 import * as types from './mutation-types'
@@ -78,14 +79,14 @@ export default {
       state.teamFlags = data
     }
   },
-  [types.UPDATE_TIMELINE] (state, data) {
-    let index = state.timeline.datasets.findIndex(element => element.teamId === data.teamid)
+  [types.UPDATE_TIMELINE] (state, meta) {
+    let index = state.timeline.datasets.findIndex(element => element.teamId === meta.teamid)
 
     if (index >= 0) {
       state.timeline.datasets[index].data = [].concat(
         state.timeline.datasets[index].data, [{
-          x: moment(data.score.submit_time),
-          y: data.score.total
+          x: moment(meta.score.submit_time),
+          y: meta.score.total
         }])
       // Sort by total score
       state.timeline.datasets.sort(function (a, b) {
@@ -93,6 +94,11 @@ export default {
       })
       // Make it a new reference so the changes can be propagated
       state.timeline = Object.assign({}, state.timeline)
+
+      Notification.success({
+        title: 'Yupppyyyy!',
+        message: `Team ${meta.team.name} scored ${meta.score.total} points`
+      })
     } else {
       throw new Error('Oh oh, an error has occured. Invalid team ID')
     }
