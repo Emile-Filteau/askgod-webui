@@ -54,6 +54,13 @@ export default {
       state.timeline = {
         datasets: data.map(({team, score}) => utils.buildChartDataset(team, score))
       }
+
+      // Sort by total score
+      state.timeline.datasets.sort(function (a, b) {
+        return b.data[b.data.length - 1].y - a.data[a.data.length - 1].y
+      })
+
+      state.timeline = Object.assign({}, state.timeline)
     } else {
       if (state.timeline.datasets.length > 0) {
         state.timeline = {
@@ -80,7 +87,10 @@ export default {
           x: moment(data.score.submit_time),
           y: data.score.total
         }])
-
+      // Sort by total score
+      state.timeline.datasets.sort(function (a, b) {
+        return b.data[b.data.length - 1].y - a.data[a.data.length - 1].y
+      })
       // Make it a new reference so the changes can be propagated
       state.timeline = Object.assign({}, state.timeline)
     } else {
