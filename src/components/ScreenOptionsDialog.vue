@@ -1,5 +1,7 @@
 <template>
-  <el-dialog title="Screen Options" :visible.sync="this.value">
+  <el-dialog title="Screen Options"
+      :before-close="handleClose"
+      :visible.sync="value">
     <el-form :model="form">
       <el-form-item label="Teams" :label-width="formLabelWidth">
         <el-select v-model="form.showTeams" placeholder="Teams">
@@ -20,7 +22,7 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="cancel()">Cancel</el-button>
+      <el-button @click="handleClose()">Cancel</el-button>
       <el-button type="primary" @click="confirm()">Confirm</el-button>
     </span>
   </el-dialog>
@@ -57,14 +59,12 @@ export default {
     this.form = this.screenOptions
   },
   methods: {
-    cancel () {
-      // This will update visible for dialog
+    handleClose () {
       this.$emit('input', false)
     },
     confirm () {
       this.$store.commit('UPDATE_SCREEN_OPTIONS', this.form)
-      // This will update visible for dialog
-      this.$emit('input', false)
+      this.handleClose()
     }
   }
 }
