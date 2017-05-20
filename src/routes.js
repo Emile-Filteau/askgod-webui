@@ -16,6 +16,11 @@ export const ROUTES = {
     path: '/scoreboard/leaderboard',
     name: 'Leaderboard',
     index: 2
+  }, {
+    component: 'Voting',
+    path: '/scoreboard/voting',
+    name: 'Voting',
+    index: 8
   }],
   is_team: [{
     component: 'TeamFlags',
