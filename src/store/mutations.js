@@ -104,5 +104,8 @@ export default {
       state.app.currentRoute.name,
       state.app.currentRoute.path
     )
+  },
+  [types.UPDATE_SCREEN_OPTIONS] (state, screenOptions) {
+    state.app.screenOptions = screenOptions
   }
 }

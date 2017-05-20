@@ -8,9 +8,9 @@
         <li v-if="settings.is_team">
           <SubmitFlagDialog></SubmitFlagDialog>
         </li>
-        <!-- <li>
+        <li>
           <el-button type="primary" icon="setting" @click="dialogVisible = true">Screen options</el-button>
-        </li> -->
+        </li>
       </ul>
     </header>
     <el-row class="container">

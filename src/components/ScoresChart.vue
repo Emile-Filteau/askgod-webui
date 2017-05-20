@@ -6,15 +6,19 @@
 
 <script>
 import LineChart from './LineChart'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   components: {
     LineChart
   },
-  computed: mapState([
-    'timeline',
-    'timelineChartOptions'
-  ])
+  computed: {
+    ...mapState([
+      'timelineChartOptions'
+    ]),
+    ...mapGetters([
+      'timeline'
+    ])
+  }
 }
 </script>

@@ -2,7 +2,7 @@
   <el-dialog title="Timeline Settings" :visible.sync="this.value">
     <el-form :model="form">
       <el-form-item label="Teams" :label-width="formLabelWidth">
-        <el-select v-model="form.topTeamsFilter" placeholder="Teams">
+        <el-select v-model="form.showTeams" placeholder="Teams">
           <el-option
             v-for="(item, key) in topTeamsOptions"
             :key="key"
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 const TIMELINE_FITLERS = {
   teams: [
     {label: 'All', value: 'all'},
@@ -27,7 +29,6 @@ const TIMELINE_FITLERS = {
     {label: 'Top 10', value: '10'}
   ]
 }
-
 export default {
   name: 'screen-options-dialog',
   props: ['value'],
@@ -35,23 +36,27 @@ export default {
     topTeamsOptions () {
       return TIMELINE_FITLERS.teams
     },
-    settings () {
-      return this.$store.state.app.currentUser.timeline.settings
-    }
+    ...mapGetters([
+      'screenOptions'
+    ])
   },
   data () {
     return {
-      form: {
-        topTeamsFilter: TIMELINE_FITLERS.teams[0].value
-      },
+      form: {},
       formLabelWidth: '120px'
     }
   },
+  created () {
+    this.form = this.screenOptions
+  },
   methods: {
     cancel () {
+      // This will update visible for dialog
       this.$emit('input', false)
     },
     confirm () {
+      this.$store.commit('UPDATE_SCREEN_OPTIONS', this.form)
+      // This will update visible for dialog
       this.$emit('input', false)
     }
   }
