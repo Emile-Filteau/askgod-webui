@@ -2,7 +2,7 @@
   <v-layout>
     <v-data-table
       :headers="headers"
-      :items="teams"
+      :items="$store.state.teams"
       hide-actions
       class="elevation-1"
     >
@@ -19,19 +19,28 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      teams () { return this.$store.state.teams }
-    },
-    data () {
-      return {
-        headers: [
-          { text: 'Score', value: 'score'},
-          { text: 'Name', value: 'name' },
-          { text: 'Country', value: 'country' },
-          { text: 'Last Flag', value: 'lastFlag' },
-        ],
-      }
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      headers: [
+        { text: 'Score', value: 'score'},
+        { text: 'Name', value: 'name' },
+        { text: 'Country', value: 'country' },
+        { text: 'Last Flag', value: 'lastFlag' },
+      ],
     }
+  },
+  // computed: {
+  //   teams() {
+  //     return this.;
+  //   }
+  // },
+  async fetch ({ store, params }) {
+    let url = 'http://localhost:3000/api/1.0/scoreboard/index.json';
+    let { data } = await axios.get(url)
+    store.commit('setTeams', data)
   }
+}
 </script>

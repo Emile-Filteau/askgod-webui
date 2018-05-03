@@ -24,9 +24,9 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar 
-      fixed 
-      app 
+    <v-toolbar
+      fixed
+      app
       :clipped-left="clipped">
       <v-toolbar-side-icon @click="drawer = !drawer"/>
       <v-btn
@@ -76,8 +76,8 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-footer 
-      :fixed="fixed" 
+    <v-footer
+      :fixed="fixed"
       app>
       <span>&copy; 2017</span>
     </v-footer>
