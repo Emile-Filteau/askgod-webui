@@ -3,6 +3,7 @@ import {
   Vuetify,
   VApp,
   VCard,
+  VDataTable,
   VNavigationDrawer,
   VFooter,
   VList,
@@ -16,6 +17,7 @@ Vue.use(Vuetify, {
   components: {
     VApp,
     VCard,
+    VDataTable,
     VNavigationDrawer,
     VFooter,
     VList,
