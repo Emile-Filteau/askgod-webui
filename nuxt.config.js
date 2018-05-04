@@ -18,6 +18,10 @@ module.exports = {
     ]
   },
   plugins: ['~/plugins/vuetify.js'],
+  modules: [
+    '@nuxtjs/axios',
+    ['@nuxtjs/moment', { locales: [], plugin: true }],
+  ],
   css: [
     '~/assets/style/app.styl'
   ],
@@ -41,7 +45,6 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      'axios',
     ],
     extractCSS: true,
     /*

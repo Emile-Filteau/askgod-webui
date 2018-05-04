@@ -1,20 +1,24 @@
 <template>
-  <v-layout>
-    <v-data-table
-      :headers="headers"
-      :items="$store.state.teams"
-      hide-actions
-      class="elevation-1"
-    >
-      <template
-        slot="items"
-        slot-scope="props">
-        <td>{{ props.item.score }}</td>
-        <td class="text-xs-right">{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.country }}</td>
-        <td class="text-xs-right">{{ props.item.lastFlag }}</td>
-      </template>
-    </v-data-table>
+  <v-layout
+    column
+    justify-center
+    align-center>
+    <v-card>
+      <v-data-table
+        :headers="headers"
+        :items="$store.state.teams"
+        hide-actions
+        class="elevation-1">
+        <template
+          slot="items"
+          slot-scope="props">
+          <td class="text-xs-center">{{ props.item.score }}</td>
+          <td>{{ props.item.team.name }}</td>
+          <td>{{ props.item.team.country }}</td>
+          <td>{{ $moment(props.item.lastFlag).fromNow() }}</td>
+        </template>
+      </v-data-table>
+    </v-card>
   </v-layout>
 </template>
 
@@ -22,25 +26,21 @@
 import axios from 'axios'
 
 export default {
+
   data () {
     return {
       headers: [
-        { text: 'Score', value: 'score'},
-        { text: 'Name', value: 'name' },
-        { text: 'Country', value: 'country' },
-        { text: 'Last Flag', value: 'lastFlag' },
-      ],
+        { text: 'Score', value: 'score', sortable: false, align: 'center'},
+        { text: 'Name', value: 'name', sortable: false},
+        { text: 'Country', value: 'country', sortable: false},
+        { text: 'Last Flag', value: 'lastFlag', sortable: false},
+      ]
     }
   },
-  // computed: {
-  //   teams() {
-  //     return this.;
-  //   }
-  // },
   async fetch ({ store, params }) {
-    let url = 'http://localhost:3000/api/1.0/scoreboard/index.json';
-    let { data } = await axios.get(url)
-    store.commit('setTeams', data)
+    if (store.state.teams.length === 0) {
+      await store.dispatch('LOAD_TEAMS')
+    }
   }
 }
 </script>

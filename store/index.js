@@ -1,33 +1,26 @@
+const HOST = 'http://localhost:3000';
+
 export const state = () => ({
   sidebar: false,
-  teams: [
-    // {
-    //   score: 92,
-    //   name: 'Team 1',
-    //   country: 'CAD',
-    //   lastFlag: '2 hours ago',
-    // },
-    // {
-    //   score: 42,
-    //   name: 'Team 2',
-    //   country: 'US',
-    //   lastFlag: '4 hours ago',
-    // },
-    // {
-    //   score: 22,
-    //   name: 'Team 3',
-    //   country: 'US',
-    //   lastFlag: '6 hours ago',
-    // }
-  ]
+  teams: []
 })
 
 export const mutations = {
   toggleSidebar (state) {
     state.sidebar = !state.sidebar
   },
-  setTeams (data) {
-    console.log(data)
-    state.teams = data
+  setTeams (state, data) {
+    state.teams = data.map(entry => ({
+      score: entry.value,
+      team: entry.team,
+      lastFlag: entry.last_submit_time
+    }));
+  }
+}
+
+export const actions = {
+  async LOAD_TEAMS ({ commit }) {
+    let { data } = await this.$axios.get(`${HOST}/api/1.0/scoreboard/index.json`)
+    commit('setTeams', data)
   }
 }

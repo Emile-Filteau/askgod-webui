@@ -79,7 +79,7 @@
     <v-footer
       :fixed="fixed"
       app>
-      <span>&copy; 2017</span>
+      <span>NorthSec &copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
@@ -92,9 +92,8 @@
         drawer: true,
         fixed: false,
         items: [
-          { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' },
-          { icon: 'bubble_chart1', title: 'Leaderboard', to: '/leaderboard' }
+          { icon: 'timeline', title: 'Timeline', to: '/' },
+          { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' }
         ],
         miniVariant: false,
         right: true,
