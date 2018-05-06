@@ -2,14 +2,17 @@ const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 
 // only add `router.base = '/<repository-name>/'` if `DEPLOY_ENV` is `GH_PAGES`
-const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+const envBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   router: {
     base: '/askgod-webui/'
+  },
+  axios: {
+    baseURL: 'https://nsec.github.io/askgod-webui/'
   }
 } : {}
 
 module.exports = {
-  ...routerBase,
+  ...envBase,
   /*
   ** Headers of the page
   */
