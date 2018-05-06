@@ -52,7 +52,7 @@
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
-        <v-icon>menu</v-icon>
+        <v-icon>settings</v-icon>
       </v-btn>
     </v-toolbar>
     <v-content>
