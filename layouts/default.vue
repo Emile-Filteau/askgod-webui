@@ -5,8 +5,7 @@
       :clipped="clipped"
       v-model="drawer"
       fixed
-      app
-    >
+      app>
       <v-list>
         <v-list-tile
           router
@@ -57,7 +56,7 @@
       </v-btn>
     </v-toolbar>
     <v-content>
-      <v-container>
+      <v-container fill-height="true">
         <nuxt />
       </v-container>
     </v-content>

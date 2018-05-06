@@ -3,15 +3,15 @@ import moment from 'moment';
 // Taken from http://htmlcolorcodes.com/color-chart/
 // Flat Design Color Chart
 export const COLORS = [
-  '#f44336' /* Red */,
-  '#e91e63' /* Pink */,
-  '#9c27b0' /* Purple */,
-  '#673ab7' /* Deep Purple */,
   '#3f51b5' /* Indigo */,
   '#2196f3' /* Blue */,
   '#03a9f4' /* Light Blue */,
   '#00bcd4' /* Cyan */,
   '#009688' /* Teal */,
+  '#f44336' /* Red */,
+  '#e91e63' /* Pink */,
+  '#9c27b0' /* Purple */,
+  '#673ab7' /* Deep Purple */,
   '#4caf50' /* Green */,
   '#8bc34a' /* Light Green */,
   '#cddc39' /* Lime */,
@@ -33,6 +33,8 @@ export const state = () => ({
   },
   timeline: null,
   timelineChartOptions: {
+    maintainAspectRatio: false,
+    responsive: true,
     legend: {
       position: 'bottom'
     },
@@ -106,13 +108,14 @@ export const getters = {
   timelineChartData: state => {
     return {
       datasets: state.timeline.map(({team, score}) => {
-        let color = COLORS[team.id % COLORS.length]
+        let color = COLORS[team.id % COLORS.length];
         return {
           teamId: team.id,
           label: team.name,
           borderColor: color,
           backgroundColor: color,
           fill: false,
+          lineTension: 0,
           data: [].concat(score.map((s) => ({
             x: moment(s.submit_time),
             y: s.total

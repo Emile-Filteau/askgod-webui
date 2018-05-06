@@ -1,11 +1,10 @@
 <template>
   <v-layout>
     <v-flex>
-      <v-card>
-        <timeline
-          :chart-data="timelineChartData"
-          :options="timelineChartOptions"/>
-      </v-card>
+      <timeline
+        class="timeline"
+        :chart-data="timelineChartData"
+        :options="timelineChartOptions"/>
     </v-flex>
   </v-layout>
 </template>
@@ -34,3 +33,13 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+.timeline {
+  // 100% - footer value
+  height: 90%;
+  height: calc(100% - 2rem);
+  position: relative;
+}
+</style>
