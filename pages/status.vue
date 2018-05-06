@@ -17,7 +17,7 @@
             <v-list-tile-action>
               <v-checkbox
                 v-model="$store.state.status[p.key]"
-                disabled="true"/>
+                :disabled="true"/>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ p.label }}</v-list-tile-title>
@@ -32,7 +32,7 @@
             <v-list-tile-action>
               <v-checkbox
                 v-model="$store.state.status.flags[f.key]"
-                disabled="true"/>
+                :disabled="true"/>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ f.label }}</v-list-tile-title>

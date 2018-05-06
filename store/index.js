@@ -3,6 +3,7 @@ export const state = () => ({
   teams: [],
   status: {
     event_name: 'NorthSec',
+    flags: {},
   },
 })
 
