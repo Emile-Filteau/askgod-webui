@@ -1,5 +1,3 @@
-const HOST = 'http://localhost:3000';
-
 export const state = () => ({
   sidebar: false,
   teams: [],
@@ -37,11 +35,11 @@ export const mutations = {
 
 export const actions = {
   async LOAD_TEAMS ({ commit }) {
-    let { data } = await this.$axios.get(`${HOST}/api/1.0/scoreboard/index.json`)
+    let { data } = await this.$axios.get(`/api/1.0/scoreboard/index.json`)
     commit('setTeams', data)
   },
   async LOAD_STATUS ({ commit }) {
-    let { data } = await this.$axios.get(`${HOST}/api/1.0/index.json`)
+    let { data } = await this.$axios.get(`/api/1.0/index.json`)
     commit('setStatus', data)
   }
 }
