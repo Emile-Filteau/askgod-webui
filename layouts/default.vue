@@ -1,9 +1,9 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
-      :mini-variant.sync="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
+      :mini-variant.sync="app.miniVariant"
+      :clipped="app.clipped"
+      v-model="app.drawer"
       fixed
       app>
       <v-list>
@@ -11,7 +11,7 @@
           router
           :to="item.to"
           :key="i"
-          v-for="(item, i) in items"
+          v-for="(item, i) in app.items"
           exact
         >
           <v-list-tile-action>
@@ -26,31 +26,19 @@
     <v-toolbar
       fixed
       app
-      :clipped-left="clipped">
-      <v-toolbar-side-icon @click="drawer = !drawer"/>
+      :clipped-left="app.clipped">
+      <v-toolbar-side-icon @click="toggle('drawer')"/>
       <v-btn
         icon
-        @click.stop="miniVariant = !miniVariant"
+        @click.stop="toggle('miniVariant')"
       >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"/>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
+        <v-icon v-html="app.miniVariant ? 'chevron_right' : 'chevron_left'"/>
       </v-btn>
       <v-toolbar-title v-text="title"/>
       <v-spacer/>
       <v-btn
         icon
-        @click.stop="rightDrawer = !rightDrawer"
+        @click.stop="toggle('rightDrawer')"
       >
         <v-icon>settings</v-icon>
       </v-btn>
@@ -62,13 +50,13 @@
     </v-content>
     <v-navigation-drawer
       temporary
-      :right="right"
-      v-model="rightDrawer"
+      :right="app.right"
+      v-model="app.rightDrawer"
       fixed>
       <p>nothing here for now!</p>
     </v-navigation-drawer>
     <v-footer
-      :fixed="fixed"
+      :fixed="app.fixed"
       app>
       <span>NorthSec &copy; 2018</span>
     </v-footer>
@@ -76,6 +64,8 @@
 </template>
 
 <script>
+  import { mapGetters, mapState, mapMutations } from 'vuex';
+
   export default {
     async created () {
       await this.$store.dispatch('LOAD_STATUS');
@@ -84,20 +74,11 @@
       title() {
         return this.$store.state.status.event_name;
       },
+      ...mapGetters(['app']),
     },
-    data () {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [
-          { icon: 'timeline', title: 'Timeline', to: '/' },
-          { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' },
-          { icon: 'info', title: 'Status', to: '/status' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
+    methods: {
+      toggle(key) {
+        this.$store.commit('toggle', key);
       }
     }
   }

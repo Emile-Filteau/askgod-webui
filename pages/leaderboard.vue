@@ -1,7 +1,6 @@
 <template>
   <v-layout
     column
-    justify-center
     align-center>
     <v-card>
       <v-data-table

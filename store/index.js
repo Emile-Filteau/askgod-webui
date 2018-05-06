@@ -26,6 +26,19 @@ export const COLORS = [
 
 export const state = () => ({
   sidebar: false,
+  app: {
+    clipped: true,
+    drawer: true,
+    fixed: false,
+    items: [
+      { icon: 'timeline', title: 'Timeline', to: '/' },
+      { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' },
+      { icon: 'info', title: 'Status', to: '/status' }
+    ],
+    miniVariant: true,
+    right: true,
+    rightDrawer: false,
+  },
   teams: [],
   status: {
     event_name: 'NorthSec',
@@ -85,6 +98,10 @@ export const mutations = {
   },
   setTimeline (state, data) {
     state.timeline = data;
+  },
+  toggle (state, key) {
+    state.app[key] = !state.app[key];
+    console.log(state.app[key], key);
   }
 }
 
@@ -105,6 +122,11 @@ export const actions = {
 }
 
 export const getters = {
+  app: state => {
+    return {
+      ...state.app,
+    }
+  },
   timelineChartData: state => {
     return {
       datasets: state.timeline.map(({team, score}) => {
