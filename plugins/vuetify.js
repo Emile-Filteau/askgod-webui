@@ -3,6 +3,7 @@ import {
   Vuetify,
   VApp,
   VCard,
+  VCheckbox,
   VDataTable,
   VNavigationDrawer,
   VFooter,
@@ -10,6 +11,7 @@ import {
   VBtn,
   VIcon,
   VGrid,
+  VSubheader,
   VToolbar
 } from 'vuetify'
 
@@ -17,6 +19,7 @@ Vue.use(Vuetify, {
   components: {
     VApp,
     VCard,
+    VCheckbox,
     VDataTable,
     VNavigationDrawer,
     VFooter,
@@ -24,6 +27,7 @@ Vue.use(Vuetify, {
     VBtn,
     VIcon,
     VGrid,
+    VSubheader,
     VToolbar
   }
 })

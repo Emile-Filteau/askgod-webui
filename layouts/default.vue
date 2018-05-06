@@ -65,16 +65,8 @@
       temporary
       :right="right"
       v-model="rightDrawer"
-      fixed
-    >
-      <v-list>
-        <v-list-tile @click.native="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
+      fixed>
+      <p>nothing here for now!</p>
     </v-navigation-drawer>
     <v-footer
       :fixed="fixed"
@@ -86,6 +78,14 @@
 
 <script>
   export default {
+    async created () {
+      await this.$store.dispatch('LOAD_STATUS');
+    },
+    computed: {
+      title() {
+        return this.$store.state.status.event_name;
+      },
+    },
     data () {
       return {
         clipped: false,
@@ -93,12 +93,12 @@
         fixed: false,
         items: [
           { icon: 'timeline', title: 'Timeline', to: '/' },
-          { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' }
+          { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' },
+          { icon: 'info', title: 'Status', to: '/status' }
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Vuetify.js'
       }
     }
   }
