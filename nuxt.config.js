@@ -31,6 +31,7 @@ module.exports = {
   mode: 'spa',
   plugins: [
     '~/plugins/vuetify.js',
+    { src: '~/plugins/localStorage.js', ssr: false }
   ],
   modules: [
     '@nuxtjs/axios',
