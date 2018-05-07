@@ -37,9 +37,7 @@ export default {
 
 <style scoped>
 .timeline {
-  // 100% - footer value
-  height: 90%;
-  height: calc(100% - 2rem);
+  height: 100%;
   position: relative;
 }
 </style>

@@ -44,7 +44,9 @@
       </v-btn>
     </v-toolbar>
     <v-content>
-      <v-container fill-height="true">
+      <v-container
+        v-bind="{ [`grid-list-xl`]: true }"
+        :fill-height="fillHeight">
         <nuxt />
       </v-container>
     </v-content>
@@ -92,12 +94,14 @@
           return this.$store.state.settings.autoRefresh;
         },
         set (value) {
-          console.log(value);
           this.$store.commit('updateSettings', {
             key: 'autoRefresh',
             value: !value,
           });
         }
+      },
+      fillHeight() {
+        return this.$route.name === 'index';
       }
     },
     methods: {

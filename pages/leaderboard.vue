@@ -1,23 +1,39 @@
 <template>
   <v-layout
-    column
-    align-center>
-    <v-card>
-      <v-data-table
-        :headers="headers"
-        :items="$store.state.teams"
-        hide-actions
-        class="elevation-1">
-        <template
-          slot="items"
-          slot-scope="props">
-          <td class="text-xs-center">{{ props.item.score }}</td>
-          <td>{{ props.item.team.name }}</td>
-          <td>{{ props.item.team.country }}</td>
-          <td>{{ $moment(props.item.lastFlag).fromNow() }}</td>
-        </template>
-      </v-data-table>
-    </v-card>
+    row
+    wrap>
+    <v-flex
+      v-for="i in top3"
+      :key="`${i.team.id}`"
+      xs4>
+      <v-card
+        dark
+        color="secondary">
+        <v-card-text class="text-xs-center ellipsis">
+          <span class="display-1">{{ i.team.name }}</span>
+          <v-divider/>
+          <span class="display-3">{{ i.score }}</span>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex xs12>
+      <v-card>
+        <v-data-table
+          :headers="headers"
+          :items="$store.state.teams"
+          hide-actions
+          class="elevation-1">
+          <template
+            slot="items"
+            slot-scope="props">
+            <td class="text-xs-center">{{ props.item.score }}</td>
+            <td>{{ props.item.team.name }}</td>
+            <td>{{ props.item.team.country }}</td>
+            <td>{{ $moment(props.item.lastFlag).fromNow() }}</td>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -33,6 +49,11 @@ export default {
       ]
     }
   },
+  computed: {
+    top3 () {
+      return this.$store.state.teams.slice(0, 3);
+    }
+  },
   async fetch ({ store, params }) {
     if (store.state.teams.length === 0) {
       await store.dispatch('LOAD_TEAMS')
@@ -40,3 +61,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .divider {
+    margin: 1rem 0;
+  }
+</style>
