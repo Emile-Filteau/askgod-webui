@@ -38,6 +38,10 @@ export const state = () => ({
     miniVariant: true,
     right: true,
     rightDrawer: false,
+
+  },
+  settings: {
+    autoRefresh: false,
   },
   teams: [],
   status: {
@@ -101,7 +105,13 @@ export const mutations = {
   },
   toggle (state, key) {
     state.app[key] = !state.app[key];
-    console.log(state.app[key], key);
+    console.log('app/'+key, state.app[key]);
+  },
+  updateSettings(state, obj) {
+    let { key, value } = obj;
+    // The state need's to be mutated here
+    state.settings[key] = !state.settings[key];
+    console.log('settings/'+key, state.settings[key]);
   }
 }
 

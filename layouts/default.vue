@@ -53,7 +53,17 @@
       :right="app.right"
       v-model="app.rightDrawer"
       fixed>
-      <p>nothing here for now!</p>
+      <v-list subheader>
+        <v-subheader>Settings</v-subheader>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-checkbox v-model="autoRefresh"/>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Auto Refresh</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <v-footer
       :fixed="app.fixed"
@@ -74,12 +84,26 @@
       title() {
         return this.$store.state.status.event_name;
       },
-      ...mapGetters(['app']),
+      ...mapGetters([
+        'app',
+      ]),
+      autoRefresh: {
+        get () {
+          return this.$store.state.settings.autoRefresh;
+        },
+        set (value) {
+          console.log(value);
+          this.$store.commit('updateSettings', {
+            key: 'autoRefresh',
+            value: !value,
+          });
+        }
+      }
     },
     methods: {
       toggle(key) {
         this.$store.commit('toggle', key);
-      }
+      },
     }
   }
 </script>
