@@ -21,6 +21,13 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <v-divider/>
+      <div class="sponsors-wrapper">
+        <img
+          src="~/assets/images/sponsors_openface.svg"
+          width="100%"
+          alt="OpenFace">
+      </div>
     </v-navigation-drawer>
     <v-toolbar
       fixed
@@ -75,3 +82,10 @@
     }
   }
 </script>
+
+<style>
+.sponsors-wrapper {
+  padding: 0 2rem;
+  text-align: center;
+}
+</style>
