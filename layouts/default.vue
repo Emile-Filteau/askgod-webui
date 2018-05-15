@@ -5,6 +5,7 @@
       v-model="app.drawer"
       fixed
       app>
+      <v-subheader>Menu</v-subheader>
       <v-list>
         <v-list-tile
           router
@@ -21,7 +22,18 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-divider/>
+      <v-subheader>Options</v-subheader>
+      <v-list>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-switch v-model="autoRefresh"/>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="`Auto Refresh: ${autoRefresh ? 'On' : 'Off'}`"/>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-subheader>Sponsors</v-subheader>
       <div class="sponsors-wrapper">
         <img
           src="~/assets/images/sponsors_openface.svg"

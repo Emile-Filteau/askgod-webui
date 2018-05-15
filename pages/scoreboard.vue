@@ -46,12 +46,41 @@ export default {
         { text: 'Name', value: 'name', sortable: false},
         { text: 'Country', value: 'country', sortable: false},
         { text: 'Last Flag', value: 'lastFlag', sortable: false},
-      ]
+      ],
+      refresher: null,
+    }
+  },
+  created () {
+    if (this.autoRefresh) {
+      this.startRefresher()
+    }
+  },
+  beforeDestroy() {
+    this.stopRefresher();
+  },
+  watch: {
+    autoRefresh (newVal, oldVal) {
+      newVal ? this.startRefresher() : this.stopRefresher();
     }
   },
   computed: {
     top3 () {
       return this.$store.state.scoreboard.slice(0, 3);
+    },
+    autoRefresh () {
+      return this.$store.state.settings.autoRefresh;
+    }
+  },
+  methods: {
+    startRefresher () {
+      this.refresher = setInterval(() => {
+        this.$store.dispatch('LOAD_SCOREBOARD');
+      }, 30000);
+      console.log('Scoreboard refresher started');
+    },
+    stopRefresher () {
+      clearInterval(this.refresher);
+      console.log('Scoreboard refresher stopped');
     }
   },
   async fetch ({ store, params }) {

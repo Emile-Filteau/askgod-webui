@@ -15,6 +15,7 @@ import {
   VGrid,
   VSnackBar,
   VSubheader,
+  VSwitch,
   VTextField,
   VToolbar
 } from 'vuetify'
@@ -35,6 +36,7 @@ Vue.use(Vuetify, {
     VGrid,
     VSnackBar,
     VSubheader,
+    VSwitch,
     VTextField,
     VToolbar
   }
