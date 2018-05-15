@@ -32,9 +32,9 @@ export const state = () => ({
     fixed: false,
     items: [
       { icon: 'timeline', title: 'Timeline', to: '/' },
-      { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' },
-      { icon: 'info', title: 'Status', to: '/status' },
-      { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' }
+      { icon: 'view_list', title: 'Scoreboard', to: '/scoreboard' },
+      { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' },
+      { icon: 'info', title: 'Status', to: '/status' }
     ],
     miniVariant: true,
     right: true,
@@ -45,6 +45,7 @@ export const state = () => ({
     autoRefresh: false,
   },
   teams: [],
+  scoreboard: [],
   status: {
     event_name: 'NorthSec',
     flags: {},
@@ -78,10 +79,13 @@ export const state = () => ({
 
 export const mutations = {
   toggleSidebar (state) {
-    state.sidebar = !state.sidebar
+    state.sidebar = !state.sidebar;
   },
   setTeams (state, data) {
-    state.teams = data.map(entry => ({
+    state.teams = data;
+  },
+  setScoreboard (state, data) {
+    state.scoreboard = data.map(entry => ({
       score: entry.value,
       team: entry.team,
       lastFlag: entry.last_submit_time
@@ -123,8 +127,12 @@ export const actions = {
     commit('setTimeline', data)
   },
   async LOAD_TEAMS ({ commit }) {
-    let { data } = await this.$axios.get(`${prefix}/scoreboard/index.json`)
+    let { data } = await this.$axios.get(`${prefix}/teams/index.json`)
     commit('setTeams', data)
+  },
+  async LOAD_SCOREBOARD ({ commit }) {
+    let { data } = await this.$axios.get(`${prefix}/scoreboard/index.json`)
+    commit('setScoreboard', data)
   },
   async LOAD_STATUS ({ commit }) {
     let { data } = await this.$axios.get(`${prefix}/index.json`)

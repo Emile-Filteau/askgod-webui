@@ -30,7 +30,7 @@ module.exports = {
   },
   mode: 'spa',
   plugins: [
-    '~/plugins/vuetify.js',
+    { src: '~/plugins/vuetify.js', ssr: false },
     { src: '~/plugins/localStorage.js', ssr: false }
   ],
   modules: [

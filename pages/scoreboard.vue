@@ -20,7 +20,7 @@
       <v-card>
         <v-data-table
           :headers="headers"
-          :items="$store.state.teams"
+          :items="$store.state.scoreboard"
           hide-actions
           class="elevation-1">
           <template
@@ -51,12 +51,12 @@ export default {
   },
   computed: {
     top3 () {
-      return this.$store.state.teams.slice(0, 3);
+      return this.$store.state.scoreboard.slice(0, 3);
     }
   },
   async fetch ({ store, params }) {
-    if (store.state.teams.length === 0) {
-      await store.dispatch('LOAD_TEAMS')
+    if (store.state.scoreboard.length === 0) {
+      await store.dispatch('LOAD_SCOREBOARD')
     }
   }
 }
