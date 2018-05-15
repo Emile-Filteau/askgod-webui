@@ -8,11 +8,14 @@ import {
   VDivider,
   VNavigationDrawer,
   VFooter,
+  VForm,
   VList,
   VBtn,
   VIcon,
   VGrid,
+  VSnackBar,
   VSubheader,
+  VTextField,
   VToolbar
 } from 'vuetify'
 
@@ -25,11 +28,14 @@ Vue.use(Vuetify, {
     VDivider,
     VNavigationDrawer,
     VFooter,
+    VForm,
     VList,
     VBtn,
     VIcon,
     VGrid,
+    VSnackBar,
     VSubheader,
+    VTextField,
     VToolbar
   }
 })

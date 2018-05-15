@@ -33,7 +33,8 @@ export const state = () => ({
     items: [
       { icon: 'timeline', title: 'Timeline', to: '/' },
       { icon: 'view_list', title: 'Leaderboard', to: '/leaderboard' },
-      { icon: 'info', title: 'Status', to: '/status' }
+      { icon: 'info', title: 'Status', to: '/status' },
+      { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' }
     ],
     miniVariant: true,
     right: true,
@@ -115,19 +116,24 @@ export const mutations = {
   }
 }
 
+const prefix = '/api/1.0';
 export const actions = {
   async LOAD_TIMELINE ({ commit }) {
-    let { data } = await this.$axios.get(`/api/1.0/timeline/index.json`)
+    let { data } = await this.$axios.get(`${prefix}/timeline/index.json`)
     commit('setTimeline', data)
-
   },
   async LOAD_TEAMS ({ commit }) {
-    let { data } = await this.$axios.get(`/api/1.0/scoreboard/index.json`)
+    let { data } = await this.$axios.get(`${prefix}/scoreboard/index.json`)
     commit('setTeams', data)
   },
   async LOAD_STATUS ({ commit }) {
-    let { data } = await this.$axios.get(`/api/1.0/index.json`)
+    let { data } = await this.$axios.get(`${prefix}/index.json`)
     commit('setStatus', data)
+  },
+  async SUBMIT_FLAG ({ commit }, flag) {
+    return this.$axios.post(`${prefix}/team/flags`, {
+      flag: flag
+    })
   }
 }
 
