@@ -1,4 +1,7 @@
 import moment from 'moment';
+import filter from 'lodash/filter';
+
+const prefix = '/api/1.0';
 
 // Taken from http://htmlcolorcodes.com/color-chart/
 // Flat Design Color Chart
@@ -120,7 +123,6 @@ export const mutations = {
   }
 }
 
-const prefix = '/api/1.0';
 export const actions = {
   async LOAD_TIMELINE ({ commit }) {
     let { data } = await this.$axios.get(`${prefix}/timeline/index.json`)
@@ -146,6 +148,16 @@ export const actions = {
 }
 
 export const getters = {
+  menuItems: state => {
+    return filter(state.app.items, i => {
+
+      if (i.to === '/submit-flag') {
+        return state.status.is_team;
+      }
+
+      return true;
+    });
+  },
   app: state => {
     return {
       ...state.app,

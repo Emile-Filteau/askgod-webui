@@ -10,7 +10,7 @@
           router
           :to="item.to"
           :key="i"
-          v-for="(item, i) in app.items"
+          v-for="(item, i) in menuItems"
           exact
         >
           <v-list-tile-action>
@@ -59,6 +59,7 @@
       },
       ...mapGetters([
         'app',
+        'menuItems',
       ]),
       autoRefresh: {
         get () {
