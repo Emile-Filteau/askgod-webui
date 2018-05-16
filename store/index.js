@@ -1,5 +1,5 @@
 import moment from 'moment';
-import filter from 'lodash/filter';
+import map from 'lodash/map';
 
 const prefix = '/api/1.0';
 
@@ -162,6 +162,12 @@ export const getters = {
     return {
       ...state.app,
     }
+  },
+  autoRefresh: state => {
+    return state.settings.autoRefresh;
+  },
+  top3: state => {
+      return state.scoreboard.slice(0, 3);
   },
   timelineChartData: state => {
     return {

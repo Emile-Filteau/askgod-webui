@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -64,12 +66,10 @@ export default {
     }
   },
   computed: {
-    top3 () {
-      return this.$store.state.scoreboard.slice(0, 3);
-    },
-    autoRefresh () {
-      return this.$store.state.settings.autoRefresh;
-    }
+    ...mapGetters([
+      'autoRefresh',
+      'top3',
+    ]),
   },
   methods: {
     startRefresher () {

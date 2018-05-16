@@ -18,13 +18,41 @@ export default {
   components: {
     Timeline
   },
+  data () {
+    return {
+      refresher: null,
+    }
+  },
+  created () {
+    if (this.autoRefresh) {
+      this.startRefresher();
+    }
+  },
   computed: {
     ...mapState([
       'timelineChartOptions',
     ]),
     ...mapGetters([
-      'timelineChartData'
-    ])
+      'timelineChartData',
+      'autoRefresh'
+    ]),
+  },
+  watch: {
+    autoRefresh (newVal, oldVal) {
+      newVal ? this.startRefresher() : this.stopRefresher();
+    }
+  },
+  methods: {
+    startRefresher () {
+      this.refresher = setInterval(() => {
+        this.$store.dispatch('LOAD_TIMELINE');
+      }, 30000);
+      console.log('Timeline refresher started');
+    },
+    stopRefresher () {
+      clearInterval(this.refresher);
+      console.log('Timeline refresher stopped');
+    }
   },
   async fetch ({ store }) {
     if (store.state.timeline === null) {
