@@ -1,18 +1,35 @@
 const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 
-// only add `router.base = '/<repository-name>/'` if `DEPLOY_ENV` is `GH_PAGES`
-const envBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
-  router: {
-    base: '/askgod-webui/'
+const envConfig = {
+  GH_PAGES: {
+    routerBase: '/askgod-webui/',
+    axioxBaseURL: 'https://nsec.github.io/askgod-webui/',
   },
-  axios: {
-    baseURL: 'https://nsec.github.io/askgod-webui/'
+  NSEC_CTF: {
+    routerBase: '/scoreboard/',
+    axioxBaseURL: 'https://askgod.nsec/',
   }
-} : {}
+}
+const envGenerator = (env) => {
+  var env = process.env.DEPLOY_ENV;
+
+  if (!envConfig[env]) {
+    return {};
+  }
+
+  return {
+    router: {
+      base: envConfig[env].routerBase,
+    },
+    axios: {
+      baseURL: envConfig[env].axioxBaseURL,
+    }
+  }
+}
 
 module.exports = {
-  ...envBase,
+  ...envGenerator(),
   /*
   ** Headers of the page
   */
@@ -34,7 +51,7 @@ module.exports = {
     { src: '~/plugins/localStorage.js', ssr: false }
   ],
   modules: [
-    '@nuxtjs/axios',
+    ['@nuxtjs/axios'],
     ['@nuxtjs/moment', { locales: [], plugin: true }],
   ],
   css: [
