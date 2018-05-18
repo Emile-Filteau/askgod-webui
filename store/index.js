@@ -1,5 +1,6 @@
 import moment from 'moment';
 import map from 'lodash/map';
+import filter from 'lodash/filter';
 
 const prefix = '/api/1.0';
 
