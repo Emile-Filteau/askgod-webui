@@ -5,6 +5,7 @@ export default ({store}) => {
   createPersistedState({
       key: 'nsec-askgod',
       paths: [
+        'app.drawer',
         'settings.autoRefresh'
       ]
   })(store)
