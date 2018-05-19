@@ -20,14 +20,15 @@
       <v-card>
         <v-data-table
           :headers="headers"
-          :items="$store.state.scoreboard"
+          :items="scoreboard"
           hide-actions
           class="elevation-1">
           <template
             slot="items"
             slot-scope="props">
-            <td class="text-xs-center">{{ props.item.score }}</td>
+            <td>{{ props.item.rank }}</td>
             <td>{{ props.item.team.name }}</td>
+            <td class="text-xs-center">{{ props.item.score }}</td>
             <td>{{ props.item.team.country }}</td>
             <td>{{ $moment(props.item.lastFlag).fromNow() }}</td>
           </template>
@@ -44,8 +45,9 @@ export default {
   data () {
     return {
       headers: [
-        { text: 'Score', value: 'score', sortable: false, align: 'center'},
+        { text: 'Rank', value: 'rank', sortable: false},
         { text: 'Name', value: 'name', sortable: false},
+        { text: 'Score', value: 'score', sortable: false, align: 'center'},
         { text: 'Country', value: 'country', sortable: false},
         { text: 'Last Flag', value: 'lastFlag', sortable: false},
       ],
@@ -69,6 +71,7 @@ export default {
     ...mapGetters([
       'autoRefresh',
       'top3',
+      'scoreboard',
     ]),
   },
   methods: {

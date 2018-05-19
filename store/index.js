@@ -185,6 +185,14 @@ export const getters = {
   top3: state => {
       return state.scoreboard.slice(0, 3);
   },
+  scoreboard: state => {
+    var result = state.scoreboard; 
+    
+    for(var i = 0; i < result.length; i++) {
+      result[i].rank = i+1;
+    }
+    return result;
+  },
   timelineChartData: state => {
     return {
       datasets: state.timeline.map(({team, score}) => {
