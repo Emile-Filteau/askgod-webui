@@ -55,15 +55,32 @@
         <nuxt />
       </v-container>
     </v-content>
+    <v-dialog
+      v-model="fireworksDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      scrollable>
+      <Fireworks/>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
   import { mapGetters, mapState, mapMutations } from 'vuex';
-
+  import Fireworks from '~/components/Fireworks';
+  
   export default {
     async created () {
       await this.$store.dispatch('LOAD_STATUS');
+    },
+    data () {
+      return {
+        dialog: false
+      }
+    },
+    components: {
+      Fireworks
     },
     computed: {
       title() {
@@ -84,6 +101,14 @@
           });
         }
       },
+      fireworksDialog: {
+        get () {
+          return this.$store.state.fireworksDialog;
+        },
+        set () {
+          this.$store.commit('setFireworksDialog', true);
+        }
+      },
       fillHeight() {
         return this.$route.name === 'index';
       }
@@ -91,7 +116,7 @@
     methods: {
       toggle(key) {
         this.$store.commit('toggle', key);
-      },
+      }
     }
   }
 </script>

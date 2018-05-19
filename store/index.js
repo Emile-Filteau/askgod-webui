@@ -43,6 +43,7 @@ export const state = () => ({
     right: true,
     rightDrawer: false,
   },
+  fireworksDialog: false,
   websocketURL: 'wss://askgod.nsec/1.0/events?type=timeline',
   settings: {
     autoRefresh: false,
@@ -129,8 +130,12 @@ export const mutations = {
     var index = findIndex(state.timeline, i => i.team.id === meta.teamid);
     if (index >= 0) {
       // Append new score if team present in dataset
-      state.timeline[index].score.push(meta.score);
+      state.timeline[index].score.push(meta.score);      
     }
+  },
+  setFireworksDialog(state, value) {
+    console.log(value);
+    state.fireworksDialog = value;
   }
 }
 
