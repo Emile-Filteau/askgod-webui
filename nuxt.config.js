@@ -48,7 +48,8 @@ module.exports = {
   mode: 'spa',
   plugins: [
     { src: '~/plugins/vuetify.js', ssr: false },
-    { src: '~/plugins/localStorage.js', ssr: false }
+    { src: '~/plugins/localStorage.js', ssr: false },
+    { src: '~/plugins/websocket.js', ssr: false }
   ],
   modules: [
     ['@nuxtjs/axios'],
@@ -75,9 +76,6 @@ module.exports = {
         }]
       ]
     },
-    vendor: [
-      '~/plugins/vuetify.js',
-    ],
     extractCSS: true,
     /*
     ** Run ESLint on save

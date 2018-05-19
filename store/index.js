@@ -1,5 +1,7 @@
 import moment from 'moment';
 import map from 'lodash/map';
+import filter from 'lodash/filter';
+import findIndex from 'lodash/findIndex';
 
 const prefix = '/api/1.0';
 
@@ -42,7 +44,6 @@ export const state = () => ({
     miniVariant: true,
     right: true,
     rightDrawer: false,
-
   },
   settings: {
     autoRefresh: false,
@@ -120,6 +121,18 @@ export const mutations = {
     // The state need's to be mutated here
     state.settings[key] = !state.settings[key];
     console.log('settings/'+key, state.settings[key]);
+  },
+  addScore(state, data) {
+    var meta = data.metadata;
+    var index = findIndex(state.timeline, i => i.team.id === meta.teamid);
+
+    if (index >= 0) {
+      // Append new score if team present in dataset
+      state.timeline[index].score.push({
+        x: moment(meta.score.submit_time),
+        y: meta.score.total
+      })
+    }
   }
 }
 
@@ -144,6 +157,9 @@ export const actions = {
     return this.$axios.post(`${prefix}/team/flags`, {
       flag: flag
     })
+  },
+  async WEBSOCKET_EVENT ({ commit }, data) {
+    commit('addScore', data);
   }
 }
 
