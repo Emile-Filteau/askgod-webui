@@ -58,6 +58,9 @@ export const state = () => ({
   timelineChartOptions: {
     maintainAspectRatio: false,
     responsive: true,
+    animation: {
+      duration: 0, // general animation time
+    },
     legend: {
       position: 'bottom'
     },
