@@ -3,8 +3,6 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import findIndex from 'lodash/findIndex';
 
-const prefix = '/api/1.0';
-
 // Taken from http://htmlcolorcodes.com/color-chart/
 // Flat Design Color Chart
 export const COLORS = [
@@ -45,6 +43,7 @@ export const state = () => ({
     right: true,
     rightDrawer: false,
   },
+  websocketURL: 'wss://askgod.nsec/1.0/events?type=timeline',
   settings: {
     autoRefresh: false,
   },
@@ -135,30 +134,32 @@ export const mutations = {
   }
 }
 
+const postfix = ''; //'/index.json';
 export const actions = {
   async LOAD_TIMELINE ({ commit }) {
-    let { data } = await this.$axios.get(`${prefix}/timeline/index.json`)
+    let { data } = await this.$axios.get(`/1.0/timeline${postfix}`)
     commit('setTimeline', data)
   },
   async LOAD_TEAMS ({ commit }) {
-    let { data } = await this.$axios.get(`${prefix}/teams/index.json`)
+    let { data } = await this.$axios.get(`/1.0/teams${postfix}`)
     commit('setTeams', data)
   },
   async LOAD_SCOREBOARD ({ commit }) {
-    let { data } = await this.$axios.get(`${prefix}/scoreboard/index.json`)
+    let { data } = await this.$axios.get(`/1.0/scoreboard${postfix}`)
     commit('setScoreboard', data)
   },
   async LOAD_STATUS ({ commit }) {
-    let { data } = await this.$axios.get(`${prefix}/index.json`)
+    let { data } = await this.$axios.get(`/1.0${postfix}`)
     commit('setStatus', data)
   },
   async SUBMIT_FLAG ({ commit }, flag) {
-    return this.$axios.post(`${prefix}/team/flags`, {
+    return this.$axios.post(`/1.0}/team/flags${postfix}`, {
       flag: flag
     })
   },
-  async WEBSOCKET_EVENT ({ commit }, data) {
+  async WEBSOCKET_EVENT ({ commit, dispatch }, data) {
     commit('addScore', data);
+    dispatch('LOAD_SCOREBOARD');
   }
 }
 

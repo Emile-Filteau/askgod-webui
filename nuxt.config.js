@@ -3,29 +3,33 @@ const resolve = (dir) => require('path').join(__dirname, dir)
 
 const envConfig = {
   GH_PAGES: {
-    routerBase: '/askgod-webui/',
-    axioxBaseURL: 'https://nsec.github.io/askgod-webui/',
-  },
-  NSEC_CTF: {
-    routerBase: '/scoreboard/',
-    axioxBaseURL: 'https://askgod.nsec/',
-  }
-}
-const envGenerator = (env) => {
-  var env = process.env.DEPLOY_ENV;
-
-  if (!envConfig[env]) {
-    return {};
-  }
-
-  return {
     router: {
-      base: envConfig[env].routerBase,
+      base: '/askgod-webui/'
     },
     axios: {
-      baseURL: envConfig[env].axioxBaseURL,
+      baseURL: 'https://nsec.github.io/askgod-webui/'
+    }
+  },
+  NSEC_CTF: {
+    router: {
+      base: '/scoreboard/'
+    },
+    axios: {
+      baseURL: 'https://askgod.nsec/'
+    }
+  },
+  LOCAL: {
+    router: {
+      base: '/'
+    },
+    axios: {
+      baseURL: 'https://askgod.nsec/',
     }
   }
+}
+const envGenerator = () => {
+  var env = process.env.DEPLOY_ENV ? process.env.DEPLOY_ENV : 'LOCAL';
+  return envConfig[env];
 }
 
 module.exports = {

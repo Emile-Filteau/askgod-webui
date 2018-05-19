@@ -20,3 +20,9 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out the [Nuxt.js](https://github.com/nuxt/nuxt.js) and [Vuetify.js](https://vuetifyjs.com/) documentation.
+
+
+## Local development nodeExternals
+
+Add Google Chrome extension to allow CORS for askgod.nsec. 
+This will allow request cross domain request from localhost:3000/

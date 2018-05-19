@@ -1,8 +1,5 @@
-//const HOST = 'wss://askgod.nsec/1.0/events?type=timeline'
-const WS_URL = 'ws://localhost:8080';
-
 export default ({ store }) => {
-  const socket = new WebSocket(WS_URL);
+  const socket = new WebSocket(store.state.websocketURL);
 
   // if (socket.readyState !== 1) {
   //   console.warn('Socket not available');
