@@ -2,7 +2,7 @@ import moment from 'moment';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 
-const prefix = '/api/1.0';
+const prefix = '';
 
 // Taken from http://htmlcolorcodes.com/color-chart/
 // Flat Design Color Chart

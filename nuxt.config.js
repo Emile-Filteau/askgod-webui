@@ -7,7 +7,7 @@ const envBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
     base: '/askgod-webui/'
   },
   axios: {
-    baseURL: 'https://www.nsec.io/scoreboard/'
+    baseURL: 'https://www.nsec.io/scoreboard/1.0'
   }
 } : {}
 
