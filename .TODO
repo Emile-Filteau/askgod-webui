@@ -1,0 +1,48 @@
+## TODOS
+
+- Add Submit flags form
+- Add websocket update to display new flags on big screen;
+- Animation to display new teams scores / web socket vs auto refresh
+- Add Rank column inside leaderboard
+
+## API
+
+Les APIs que ça prend dans le scoreboard des teams sont:
+- Afficher les détails de l'équipe: GET /1.0/team
+- Mettre à jour les détails de l'équipe: PUT /1.0/team
+- Soumettre un flag: POST /1.0/team/flags
+- Lister les flags soumis: GET /1.0/team/flags
+- Modifier la note sur un flag: PUT /1.0/team/flags/{id}
+- Lister le scoreboard: GET /1.0/scoreboard
+- Lister la timeline des flags (graph): GET /1.0/timeline
+- Refresh par websocket: GET /1.0/events?type=timeline
+
+- Le workflow race-free pour websocket, c'est:
+   - Se connecter à /1.0/events?type=timeline
+   - GET /1.0/scoreboard
+   - GET /1.0/timeline
+
+   Comme ça tu ne peux pas manquer d'évenements qui seraient envoyé
+   entre le téléchargement du data initial et le début de la connection
+   websocket.
+
+- En cas de perte de perte de connection websocket, il faudrait faire
+  un refresh complet de la page pour garantir qu'il ne manque rien.
+
+Les APIs que ça prend pour le scoreboard sur www.nsec.io sont:
+- Lister le scoreboard: GET /1.0/scoreboard
+- Lister la timeline des flags (graph): GET /1.0/timeline
+
+- /1.0/scoreboard ou /1.0/timeline seront vide durant la dernière heure
+  de la compétition quand le scoreboard est masqué.
+
+
+Les événements websockets qui sont utile pour toi sont:
+- team-updated: Changement de nom, pays ou site web
+  Ce type de message vient avec "type", "teamid" et "team" de présent.
+
+- team-removed: Une équipe a été complètement enlevée (kicked out)
+  Ce type de message n'aura que "type" et "teamid" de présent.
+
+- score-updated: Nouvelle entrée de timeline pour une team
+  Ce type de message vient avec tous les champs présents.
