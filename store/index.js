@@ -125,13 +125,9 @@ export const mutations = {
   addScore(state, data) {
     var meta = data.metadata;
     var index = findIndex(state.timeline, i => i.team.id === meta.teamid);
-
     if (index >= 0) {
       // Append new score if team present in dataset
-      state.timeline[index].score.push({
-        x: moment(meta.score.submit_time),
-        y: meta.score.total
-      })
+      state.timeline[index].score.push(meta.score);
     }
   }
 }
