@@ -5,7 +5,7 @@
     <v-flex
       v-for="i in top3"
       :key="`${i.team.id}`"
-      xs4>
+      md4>
       <v-card
         dark
         color="secondary">
