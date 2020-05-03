@@ -35,10 +35,10 @@
       </v-list>
       <v-subheader>Sponsors</v-subheader>
       <div class="sponsors-wrapper">
-        <img
+        <!-- <img
           src="~/assets/images/sponsors_openface.svg"
           width="100%"
-          alt="OpenFace">
+          alt="OpenFace"> -->
       </div>
     </v-navigation-drawer>
     <v-toolbar

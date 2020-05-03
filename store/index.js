@@ -158,7 +158,7 @@ export const actions = {
     commit('setStatus', data)
   },
   async SUBMIT_FLAG ({ commit }, flag) {
-    return this.$axios.post(`/1.0}/team/flags${postfix}`, {
+    return this.$axios.post(`/1.0/team/flags${postfix}`, {
       flag: flag
     })
   },
