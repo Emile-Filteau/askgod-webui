@@ -5,39 +5,37 @@
       sm6
       offset-sm3>
       <v-card>
-        <v-toolbar dark>
+        <v-toolbar>
           <v-toolbar-title>Status</v-toolbar-title>
         </v-toolbar>
         <v-list subheader>
           <v-subheader>Permissions</v-subheader>
-          <v-list-tile
-            avatar
+          <v-list-item
             v-for="p in permissions"
             :key="p.key">
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-checkbox
                 v-model="$store.state.status[p.key]"
                 :disabled="true"/>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ p.label }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ p.label }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-divider/>
           <v-subheader>Flags</v-subheader>
-          <v-list-tile
-            avatar
+          <v-list-item
             v-for="f in flags"
             :key="f.key">
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-checkbox
                 v-model="$store.state.status.flags[f.key]"
                 :disabled="true"/>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ f.label }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ f.label }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-card>
     </v-flex>

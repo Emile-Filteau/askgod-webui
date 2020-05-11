@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer
       :clipped="app.clipped"
       v-model="app.drawer"
@@ -7,31 +7,31 @@
       app>
       <v-subheader>Menu</v-subheader>
       <v-list>
-        <v-list-tile
+        <v-list-item
           router
           :to="item.to"
           :key="i"
           v-for="(item, i) in menuItems"
           exact
         >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"/>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"/>
-          </v-list-tile-content>
-        </v-list-tile>
+          <v-list-item-action>
+            <v-icon>{{item.icon}}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"/>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
       <v-subheader>Options</v-subheader>
       <v-list>
-        <v-list-tile>
-          <v-list-tile-action>
+        <v-list-item>
+          <v-list-item-action>
             <v-switch v-model="autoRefresh"/>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="`Auto Refresh: ${autoRefresh ? 'On' : 'Off'}`"/>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Auto Refresh: ${autoRefresh ? 'On' : 'Off'}`"/>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
       <v-subheader>Sponsors</v-subheader>
       <div class="sponsors-wrapper">
@@ -41,13 +41,15 @@
           alt="OpenFace"> -->
       </div>
     </v-navigation-drawer>
-    <v-toolbar
-      fixed
-      app
-      :clipped-left="app.clipped">
-      <v-toolbar-side-icon @click="toggle('drawer')"/>
-      <v-toolbar-title v-text="title"/>
-    </v-toolbar>
+
+    <v-app-bar
+       app
+       clipped-left
+     >
+      <v-app-bar-nav-icon @click.stop="toggle('drawer')"></v-app-bar-nav-icon>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
+    </v-app-bar>
+
     <v-content>
       <v-container
         v-bind="{ [`grid-list-xl`]: true }"
@@ -69,7 +71,7 @@
 <script>
   import { mapGetters, mapState, mapMutations } from 'vuex';
   import Fireworks from '~/components/Fireworks';
-  
+
   export default {
     async created () {
       await this.$store.dispatch('LOAD_STATUS');

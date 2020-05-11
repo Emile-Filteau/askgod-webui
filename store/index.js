@@ -1,7 +1,4 @@
 import moment from 'moment';
-import map from 'lodash/map';
-import filter from 'lodash/filter';
-import findIndex from 'lodash/findIndex';
 
 // Taken from http://htmlcolorcodes.com/color-chart/
 // Flat Design Color Chart
@@ -34,10 +31,10 @@ export const state = () => ({
     drawer: true,
     fixed: false,
     items: [
-      { icon: 'timeline', title: 'Timeline', to: '/' },
+      { icon: 'bar_chart', title: 'Timeline', to: '/' },
       { icon: 'view_list', title: 'Scoreboard', to: '/scoreboard' },
-      { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' },
-      { icon: 'info', title: 'Status', to: '/status' }
+      { icon: 'mdi-flag', title: 'Submit Flag', to: '/submit-flag' },
+      { icon: 'settings', title: 'Status', to: '/status' }
     ],
     miniVariant: true,
     right: true,
@@ -127,10 +124,10 @@ export const mutations = {
   },
   addScore(state, data) {
     var meta = data.metadata;
-    var index = findIndex(state.timeline, i => i.team.id === meta.teamid);
+    var index = state.timeline.findIndex(i => i.team.id === meta.teamid);
     if (index >= 0) {
       // Append new score if team present in dataset
-      state.timeline[index].score.push(meta.score);      
+      state.timeline[index].score.push(meta.score);
     }
   },
   setFireworksDialog(state, value) {
@@ -170,7 +167,7 @@ export const actions = {
 
 export const getters = {
   menuItems: state => {
-    return filter(state.app.items, i => {
+    return state.app.items.filter( i => {
 
       if (i.to === '/submit-flag') {
         return state.status.is_team;
@@ -191,8 +188,8 @@ export const getters = {
       return state.scoreboard.slice(0, 3);
   },
   scoreboard: state => {
-    var result = state.scoreboard; 
-    
+    var result = state.scoreboard;
+
     for(var i = 0; i < result.length; i++) {
       result[i].rank = i+1;
     }

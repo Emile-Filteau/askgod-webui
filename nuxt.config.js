@@ -45,10 +45,6 @@ const envConfig = {
 }
 
 module.exports = {
-  ...envGenerator(process.env.DEPLOY_ENV),
-  /*
-  ** Headers of the page
-  */
   head: {
     title: 'NorthSec CTF - Askgod Web UI',
     meta: [
@@ -63,56 +59,36 @@ module.exports = {
   },
   mode: 'spa',
   plugins: [
-    { src: '~/plugins/vuetify.js', ssr: false },
     { src: '~/plugins/localStorage.js', ssr: false },
     { src: '~/plugins/websocket.js', ssr: false }
   ],
+  // Nuxt.js dev-modules
+  buildModules: [
+    ['@nuxtjs/proxy'],
+    ['@nuxtjs/vuetify', {
+      defaultAssets: {
+        font: {
+          family: 'Roboto'
+        },
+        icons: 'md'
+      }
+    }]
+  ],
   modules: [
     ['@nuxtjs/axios'],
-    ['@nuxtjs/proxy'],
-    ['@nuxtjs/moment', { locales: [], plugin: true }],
+
+    ['@nuxtjs/moment', {
+      locales: [],
+      plugin: true,
+    }],
   ],
-  css: [
-    '~/assets/style/app.styl'
-  ],
-  /*
-  ** Customize the progress bar color
-  */
-  loading: { color: '#3B8070' },
-  /*
-  ** Build configuration
-  */
-  build: {
-    babel: {
-      plugins: [
-        ['transform-imports', {
-          'vuetify': {
-            'transform': 'vuetify/es5/components/${member}',
-            'preventFullImport': true
-          }
-        }]
-      ]
-    },
-    extractCSS: true,
-    /*
-    ** Run ESLint on save
-    */
-    extend (config, ctx) {
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-      if (ctx.isServer) {
-        config.externals = [
-          nodeExternals({
-            whitelist: [/^vuetify/]
-          })
-        ]
-      }
+  vuetify: {
+    theme: {
+      dark: true,
     }
-  }
+  },
+  // Customize the progress bar color
+  loading: { color: '#3B8070' },
+  // environment specific options
+  ...envGenerator(process.env.DEPLOY_ENV),
 }
