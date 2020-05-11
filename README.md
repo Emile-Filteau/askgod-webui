@@ -19,10 +19,20 @@ $ npm start
 $ npm run generate
 ```
 
+## Generate local cert for dev
+
+Require [mkcert](https://github.com/FiloSottile/mkcert) to be installed.
+
+``` bash
+mkdir -p .env/local
+cd .env/local
+mkcert localhost
+```
+
 For detailed explanation on how things work, check out the [Nuxt.js](https://github.com/nuxt/nuxt.js) and [Vuetify.js](https://vuetifyjs.com/) documentation.
 
 
 ## Local development nodeExternals
 
-Add Google Chrome extension to allow CORS for askgod.nsec. 
+Add Google Chrome extension to allow CORS for askgod.nsec.
 This will allow request cross domain request from localhost:3000/

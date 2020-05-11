@@ -1,5 +1,8 @@
 const nodeExternals = require('webpack-node-externals')
+const fs = require('fs');
+
 const resolve = (dir) => require('path').join(__dirname, dir)
+const envGenerator = (env = 'LOCAL') => envConfig[env];
 
 const envConfig = {
   GH_PAGES: {
@@ -23,17 +26,26 @@ const envConfig = {
       base: '/'
     },
     axios: {
-      baseURL: 'https://askgod.nsec/',
+      proxy: true,
+    },
+    server: {
+      https: {
+        key: fs.readFileSync(resolve('.env/local/localhost-key.pem')),
+        cert: fs.readFileSync(resolve('.env/local/localhost.pem'))
+      }
+    },
+    proxy: {
+      '/1.0': {
+        target: 'https://askgod.nsec/',
+        changeOrigin: true,
+        secure: false,
+      }
     }
   }
 }
-const envGenerator = () => {
-  var env = process.env.DEPLOY_ENV ? process.env.DEPLOY_ENV : 'LOCAL';
-  return envConfig[env];
-}
 
 module.exports = {
-  ...envGenerator(),
+  ...envGenerator(process.env.DEPLOY_ENV),
   /*
   ** Headers of the page
   */
@@ -57,6 +69,7 @@ module.exports = {
   ],
   modules: [
     ['@nuxtjs/axios'],
+    ['@nuxtjs/proxy'],
     ['@nuxtjs/moment', { locales: [], plugin: true }],
   ],
   css: [
