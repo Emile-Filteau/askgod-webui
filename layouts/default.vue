@@ -26,20 +26,36 @@
       <v-list>
         <v-list-item>
           <v-list-item-action>
-            <v-switch v-model="autoRefresh"/>
+            <v-switch
+              v-model="$vuetify.theme.dark"
+              hide-details
+              inset
+            ></v-switch>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="`Auto Refresh: ${autoRefresh ? 'On' : 'Off'}`"/>
+            <v-list-item-title>Dark Theme</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-switch
+              v-model="autoRefresh"
+              hide-details
+              inset>
+            ></v-switch>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Auto Refresh</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-subheader>Sponsors</v-subheader>
+      <!-- <v-subheader>Sponsors</v-subheader>
       <div class="sponsors-wrapper">
-        <!-- <img
+        <img
           src="~/assets/images/sponsors_openface.svg"
           width="100%"
-          alt="OpenFace"> -->
-      </div>
+          alt="OpenFace">
+      </div> -->
     </v-navigation-drawer>
 
     <v-app-bar
@@ -76,11 +92,12 @@
     async created () {
       await this.$store.dispatch('LOAD_STATUS');
     },
-    data () {
-      return {
-        dialog: false
-      }
-    },
+    data: vm => ({
+      initialDark: vm.$vuetify
+        ? vm.$vuetify.theme.dark
+        : false,
+      dialog: false,
+    }),
     components: {
       Fireworks
     },
