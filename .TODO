@@ -1,9 +1,9 @@
 ## TODOS
 
-- Add Submit flags form
+- Add Submit flags form - DONE
 - Add websocket update to display new flags on big screen;
 - Animation to display new teams scores / web socket vs auto refresh
-- Add Rank column inside leaderboard
+- Add Rank column inside leaderboard - DONE
 
 ## API
 

@@ -15,7 +15,7 @@
           exact
         >
           <v-list-item-action>
-            <v-icon>{{item.icon}}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title"/>
@@ -30,7 +30,7 @@
               v-model="$vuetify.theme.dark"
               hide-details
               inset
-            ></v-switch>
+            />
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Dark Theme</v-list-item-title>
@@ -42,7 +42,7 @@
               v-model="autoRefresh"
               hide-details
               inset>
-            ></v-switch>
+              ></v-switch>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Auto Refresh</v-list-item-title>
@@ -59,11 +59,11 @@
     </v-navigation-drawer>
 
     <v-app-bar
-       app
-       clipped-left
-     >
-      <v-app-bar-nav-icon @click.stop="toggleDrawer('drawer')"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{title}}</v-toolbar-title>
+      app
+      clipped-left
+    >
+      <v-app-bar-nav-icon @click.stop="toggleDrawer('drawer')"/>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-app-bar>
 
     <v-content>

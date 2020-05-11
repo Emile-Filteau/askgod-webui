@@ -1,10 +1,12 @@
 <template>
   <div>
     <v-row>
-      <v-col lg="4" cols="sm"
+      <v-col 
+        lg="4" 
+        cols="sm"
         v-for="i in top3"
         :key="`${i.id}`"
-        >
+      >
         <v-card>
           <v-row class="no-gutters">
             <div class="col-auto">
@@ -23,14 +25,14 @@
         <v-card>
           <v-card-title>
             Teams
-            <v-spacer></v-spacer>
+            <v-spacer/>
             <v-text-field
               v-model="search"
               append-icon="search"
               label="Search"
               single-line
               hide-details
-            ></v-text-field>
+            />
           </v-card-title>
           <v-data-table
             :headers="headers"
@@ -39,7 +41,10 @@
             hide-default-footer
             class="elevation-1">
             <template v-slot:item.name="{ item }">
-              <a :href="item.website" target="_blank" rel="noopener">{{ item.name }}</a>
+              <a 
+                :href="item.website" 
+                target="_blank" 
+                rel="noopener">{{ item.name }}</a>
             </template>
             <template v-slot:item.lastFlag="{ item }">
               {{ $moment(item.lastFlag).fromNow() }}
