@@ -23,7 +23,6 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/moment": "^1.6.1",
-    "ajv": "^6.12.2",
     "chart.js": "^2.9.3",
     "moment": "^2.25.3",
     "nuxt": "^2.12.2",
@@ -36,7 +35,6 @@
     "@nuxtjs/vuetify": "^1.11.2",
     "ava": "^0.25.0",
     "babel-eslint": "^10.1.0",
-    "babel-plugin-transform-imports": "^1.5.1",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-loader": "^2.2.1",
@@ -47,14 +45,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^4.7.1",
     "push-dir": "^0.4.1",
-    "stylus": "^0.54.7",
-    "stylus-loader": "^3.0.1",
     "ws": "^6.2.1"
-  },
-  "babel": {
-    "presets": [
-      "vue-app"
-    ]
   },
   "ava": {
     "require": "babel-register",

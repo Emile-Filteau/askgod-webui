@@ -33,7 +33,7 @@ export const state = () => ({
     items: [
       { icon: 'bar_chart', title: 'Timeline', to: '/' },
       { icon: 'view_list', title: 'Scoreboard', to: '/scoreboard' },
-      { icon: 'mdi-flag', title: 'Submit Flag', to: '/submit-flag' },
+      { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' },
       { icon: 'settings', title: 'Status', to: '/status' }
     ],
     miniVariant: true,
