@@ -62,7 +62,7 @@
        app
        clipped-left
      >
-      <v-app-bar-nav-icon @click.stop="toggle('drawer')"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="toggleDrawer('drawer')"></v-app-bar-nav-icon>
       <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-app-bar>
 
@@ -133,7 +133,7 @@
       }
     },
     methods: {
-      toggle(key) {
+      toggleDrawer(key) {
         this.$store.commit('toggle', key);
       }
     }

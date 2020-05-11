@@ -51,7 +51,7 @@ export const state = () => ({
     event_name: 'NorthSec',
     flags: {},
   },
-  timeline: null,
+  timeline: [],
   timelineChartOptions: {
     maintainAspectRatio: false,
     responsive: true,
@@ -136,26 +136,41 @@ export const mutations = {
   }
 }
 
-const postfix = ''; //'/index.json';
 export const actions = {
   async LOAD_TIMELINE ({ commit }) {
-    let { data } = await this.$axios.get(`/1.0/timeline${postfix}`)
-    commit('setTimeline', data)
+    try {
+      let { data } = await this.$axios.get(`/1.0/timeline`)
+      commit('setTimeline', data)
+    } catch (error) {
+      console.error(error.message)
+    }
   },
   async LOAD_TEAMS ({ commit }) {
-    let { data } = await this.$axios.get(`/1.0/teams${postfix}`)
-    commit('setTeams', data)
+    try {
+      let { data } = await this.$axios.get(`/1.0/teams`)
+      commit('setTeams', data)
+    } catch (error) {
+      console.error(error.message)
+    }
   },
   async LOAD_SCOREBOARD ({ commit }) {
-    let { data } = await this.$axios.get(`/1.0/scoreboard${postfix}`)
-    commit('setScoreboard', data)
+    try {
+      let { data } = await this.$axios.get(`/1.0/scoreboard}`)
+      commit('setScoreboard', data)
+    } catch (error) {
+      console.error(error.message)
+    }
   },
   async LOAD_STATUS ({ commit }) {
-    let { data } = await this.$axios.get(`/1.0${postfix}`)
-    commit('setStatus', data)
+    try {
+      let { data } = await this.$axios.get(`/1.0`)
+      commit('setStatus', data)
+    } catch (error) {
+      console.error(error.message)
+    }
   },
   async SUBMIT_FLAG ({ commit }, flag) {
-    return this.$axios.post(`/1.0/team/flags${postfix}`, {
+    return this.$axios.post(`/1.0/team/flags`, {
       flag: flag
     })
   },

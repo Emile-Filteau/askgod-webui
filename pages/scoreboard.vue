@@ -21,7 +21,7 @@
         <v-data-table
           :headers="headers"
           :items="scoreboard"
-          hide-actions
+          hide-default-footer
           class="elevation-1">
           <template
             slot="items"
@@ -88,7 +88,12 @@ export default {
   },
   async fetch ({ store, params }) {
     if (store.state.scoreboard.length === 0) {
-      await store.dispatch('LOAD_SCOREBOARD')
+      try {
+        await store.dispatch('LOAD_SCOREBOARD')
+      } catch (e) {
+        console.log(e)
+      }
+
     }
   }
 }
