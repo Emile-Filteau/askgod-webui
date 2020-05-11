@@ -89,11 +89,13 @@ export const mutations = {
     state.teams = data;
   },
   setScoreboard (state, data) {
-    state.scoreboard = data.map(entry => ({
+    console.log(data)
+    state.scoreboard = data.map((entry, index) => ({
+      ...entry.team,
+      rank: index + 1,
+      lastFlag: entry.last_submit_time,
       score: entry.value,
-      team: entry.team,
-      lastFlag: entry.last_submit_time
-    }));
+    }))
   },
   setStatus (state, data) {
     state.status = {
@@ -155,7 +157,7 @@ export const actions = {
   },
   async LOAD_SCOREBOARD ({ commit }) {
     try {
-      let { data } = await this.$axios.get(`/1.0/scoreboard}`)
+      let { data } = await this.$axios.get(`/1.0/scoreboard`)
       commit('setScoreboard', data)
     } catch (error) {
       console.error(error.message)
@@ -202,14 +204,7 @@ export const getters = {
   top3: state => {
       return state.scoreboard.slice(0, 3);
   },
-  scoreboard: state => {
-    var result = state.scoreboard;
-
-    for(var i = 0; i < result.length; i++) {
-      result[i].rank = i+1;
-    }
-    return result;
-  },
+  scoreboard: state => state.scoreboard,
   timelineChartData: state => {
     return {
       datasets: state.timeline.map(({team, score}) => {

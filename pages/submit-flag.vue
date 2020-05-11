@@ -32,10 +32,11 @@
         <v-snackbar
           :timeout="timeout"
           :color="color"
+          bottom
+          left
           v-model="snackbar">
           {{ text }}
           <v-btn
-            dark
             flat
             @click.native="snackbar = false">
             Close

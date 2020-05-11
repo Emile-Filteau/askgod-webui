@@ -3,7 +3,6 @@
     <v-toolbar flat="true">
       <v-btn
         icon
-        dark
         @click.native="closeDialog">
         <v-icon>close</v-icon>
       </v-btn>

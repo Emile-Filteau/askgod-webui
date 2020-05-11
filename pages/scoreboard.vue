@@ -1,41 +1,54 @@
 <template>
-  <v-layout
-    row
-    wrap>
-    <v-flex
-      v-for="i in top3"
-      :key="`${i.team.id}`"
-      md4>
-      <v-card
-        dark
-        color="secondary">
-        <v-card-text class="text-xs-center ellipsis">
-          <span class="display-1">{{ i.team.name }}</span>
-          <v-divider/>
-          <span class="display-3">{{ i.score }}</span>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex xs12>
-      <v-card>
-        <v-data-table
-          :headers="headers"
-          :items="scoreboard"
-          hide-default-footer
-          class="elevation-1">
-          <template
-            slot="items"
-            slot-scope="props">
-            <td>{{ props.item.rank }}</td>
-            <td>{{ props.item.team.name }}</td>
-            <td class="text-xs-center">{{ props.item.score }}</td>
-            <td>{{ props.item.team.country }}</td>
-            <td>{{ $moment(props.item.lastFlag).fromNow() }}</td>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <div>
+    <v-row>
+      <v-col lg="4" cols="sm"
+        v-for="i in top3"
+        :key="`${i.id}`"
+        >
+        <v-card>
+          <v-row class="no-gutters">
+            <div class="col-auto">
+              <div class="success fill-height">&nbsp;</div>
+            </div>
+            <div class="col pa-3 py-4 success--text">
+              <h5 class="text-truncate text-uppercase">{{ i.name }}</h5>
+              <h1>{{ i.score }}</h1>
+            </div>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title>
+            Teams
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="scoreboard"
+            :search="search"
+            hide-default-footer
+            class="elevation-1">
+            <template v-slot:item.name="{ item }">
+              <a :href="item.website" target="_blank" rel="noopener">{{ item.name }}</a>
+            </template>
+            <template v-slot:item.lastFlag="{ item }">
+              {{ $moment(item.lastFlag).fromNow() }}
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -44,6 +57,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      search: '',
       headers: [
         { text: 'Rank', value: 'rank', sortable: false},
         { text: 'Name', value: 'name', sortable: false},
