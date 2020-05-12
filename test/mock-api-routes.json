@@ -1,0 +1,7 @@
+{
+  "/1.0": "/status",
+  "/1.0/scoreboard": "/scoreboard",
+  "/1.0/team": "/teamInfo",
+  "/1.0/team/flags": "/teamFlags",
+  "/1.0/timeline": "/timeline"
+}

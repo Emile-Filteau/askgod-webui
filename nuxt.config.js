@@ -35,10 +35,15 @@ const envConfig = {
       }
     },
     proxy: {
+      // FIXME Use for used with real data
+      // '/1.0': {
+      //   target: 'https://askgod.nsec/',
+      //   changeOrigin: true,
+      //   secure: false,
+      // }
       '/1.0': {
-        target: 'https://askgod.nsec/',
-        changeOrigin: true,
-        secure: false,
+        target: 'http://localhost:3004',
+        secure: false
       }
     }
   }
@@ -76,7 +81,6 @@ module.exports = {
   ],
   modules: [
     ['@nuxtjs/axios'],
-
     ['@nuxtjs/moment', {
       locales: [],
       plugin: true,

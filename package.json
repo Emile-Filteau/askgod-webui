@@ -18,7 +18,8 @@
     "precommit": "npm run lint",
     "test": "NODE_ENV=test ava --serial --verbose",
     "test:ci": "NODE_ENV=test ava --serial --verbose --watch",
-    "test:coverage": "nyc ava"
+    "test:coverage": "nyc ava",
+    "serve:api": "json-server test/mock-api.js --port 3004 --routes test/mock-api-routes.json"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.10.3",
@@ -44,6 +45,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^4.7.1",
+    "json-server": "^0.16.1",
     "push-dir": "^0.4.1",
     "ws": "^6.2.1"
   },
