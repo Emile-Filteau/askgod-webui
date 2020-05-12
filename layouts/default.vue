@@ -22,12 +22,12 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-subheader>Options</v-subheader>
+      <v-subheader>Screen Options</v-subheader>
       <v-list>
         <v-list-item>
           <v-list-item-action>
             <v-switch
-              v-model="$vuetify.theme.dark"
+              v-model="theme"
               hide-details
               inset
             />
@@ -93,9 +93,6 @@
       await this.$store.dispatch('LOAD_STATUS');
     },
     data: vm => ({
-      initialDark: vm.$vuetify
-        ? vm.$vuetify.theme.dark
-        : false,
       dialog: false,
     }),
     components: {
@@ -117,6 +114,19 @@
           this.$store.commit('updateSettings', {
             key: 'autoRefresh',
             value: !value,
+          });
+        }
+      },
+      theme: {
+        get () {
+          this.$vuetify.theme.dark = this.$store.state.settings.theme;
+          return this.$vuetify.theme.dark;
+        },
+        set (value) {
+          this.$vuetify.theme.dark = value
+          this.$store.commit('updateSettings', {
+            key: 'theme',
+            value: value,
           });
         }
       },

@@ -6,7 +6,8 @@ export default ({store}) => {
       key: 'nsec-askgod',
       paths: [
         'app.drawer',
-        'settings.autoRefresh'
+        'settings.autoRefresh',
+        'settings.theme',
       ]
   })(store)
 }

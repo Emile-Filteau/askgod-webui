@@ -89,7 +89,6 @@ export const mutations = {
     state.teams = data;
   },
   setScoreboard (state, data) {
-    console.log(data)
     state.scoreboard = data.map((entry, index) => ({
       ...entry.team,
       rank: index + 1,
@@ -193,17 +192,10 @@ export const getters = {
       return true;
     });
   },
-  app: state => {
-    return {
-      ...state.app,
-    }
-  },
-  autoRefresh: state => {
-    return state.settings.autoRefresh;
-  },
-  top3: state => {
-      return state.scoreboard.slice(0, 3);
-  },
+  app: state => ({...state.ap}),
+  autoRefresh: state => state.settings.autoRefresh,
+  theme: state => state.settings.theme,
+  top3: state => state.scoreboard.slice(0, 3),
   scoreboard: state => state.scoreboard,
   timelineChartData: state => {
     return {
