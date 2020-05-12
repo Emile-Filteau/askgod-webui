@@ -55,12 +55,10 @@ export default {
     }
   },
   async fetch ({ store }) {
-    if (store.state.timeline === null) {
-      try {
-        await store.dispatch('LOAD_TIMELINE');
-      } catch (e) {
-        console.log(e)
-      }
+    try {
+      await store.dispatch('LOAD_TIMELINE');
+    } catch (e) {
+      console.log(e)
     }
   }
 }
