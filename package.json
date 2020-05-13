@@ -19,12 +19,13 @@
     "test": "NODE_ENV=test ava --serial --verbose",
     "test:ci": "NODE_ENV=test ava --serial --verbose --watch",
     "test:coverage": "nyc ava",
-    "serve:api": "json-server test/mock-api.js --port 3004 --routes test/mock-api-routes.json"
+    "serve:api": "json-server ./test/api/server.js --port 3004 --routes ./test/api/routes.json"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/moment": "^1.6.1",
     "chart.js": "^2.9.3",
+    "faker": "^4.1.0",
     "moment": "^2.25.3",
     "nuxt": "^2.12.2",
     "vue-chartjs": "^3.5.0",
