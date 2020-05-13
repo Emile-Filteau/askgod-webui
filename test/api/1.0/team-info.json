@@ -1,8 +1,6 @@
-[
-  {
-    "name": "NorthSec",
-    "country": "CA",
-    "website": "https://www.nsec.io",
-    "id": 1
-  }
-]
+{
+  "name": "NorthSec",
+  "country": "CA",
+  "website": "https://www.nsec.io",
+  "id": 1
+}

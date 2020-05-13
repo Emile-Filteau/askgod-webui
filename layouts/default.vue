@@ -85,7 +85,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapState, mapMutations } from 'vuex';
+  import { mapGetters } from 'vuex';
   import Fireworks from '~/components/Fireworks';
 
   export default {

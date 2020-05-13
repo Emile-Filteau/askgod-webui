@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-row>
-      <v-col 
-        lg="4" 
+      <v-col
+        lg="4"
         cols="sm"
         v-for="i in top3"
         :key="`${i.id}`"
@@ -10,9 +10,9 @@
         <v-card>
           <v-row class="no-gutters">
             <div class="col-auto">
-              <div class="success fill-height">&nbsp;</div>
+              <div class="blue fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 success--text">
+            <div class="col pa-3 py-4 blue--text">
               <h5 class="text-truncate text-uppercase">{{ i.name }}</h5>
               <h1>{{ i.score }}</h1>
             </div>
@@ -38,12 +38,12 @@
             :headers="headers"
             :items="scoreboard"
             :search="search"
-            hide-default-footer
+            :items-per-page="20"
             class="elevation-1">
             <template v-slot:item.name="{ item }">
-              <a 
-                :href="item.website" 
-                target="_blank" 
+              <a
+                :href="item.website"
+                target="_blank"
                 rel="noopener">{{ item.name }}</a>
             </template>
             <template v-slot:item.lastFlag="{ item }">

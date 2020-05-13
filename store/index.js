@@ -46,6 +46,12 @@ export const state = () => ({
     autoRefresh: false,
     theme: 'dark',
   },
+  myTeam: {
+    id: null,
+    name: null,
+    country: null,
+    website: null,
+  },
   teams: [],
   scoreboard: [],
   status: {
@@ -90,11 +96,13 @@ export const mutations = {
     state.teams = data;
   },
   setScoreboard (state, data) {
-    state.scoreboard = data.map((entry, index) => ({
-      ...entry.team,
+    state.scoreboard = data
+    .sort((a, b) => b.value - a.value)
+    .map((x, index) => ({
+      ...x.team,
       rank: index + 1,
-      lastFlag: entry.last_submit_time,
-      score: entry.value,
+      lastFlag: x.last_submit_time,
+      score: x.value,
     }))
   },
   setStatus (state, data) {
@@ -117,13 +125,13 @@ export const mutations = {
   },
   toggle (state, key) {
     state.app[key] = !state.app[key];
-    console.log('app/'+key, state.app[key]);
+    console.debug('app/'+key, state.app[key]);
   },
   updateSettings(state, obj) {
     let { key, value } = obj;
     // The state need's to be mutated here
     state.settings[key] = !state.settings[key];
-    console.log('settings/'+key, state.settings[key]);
+    console.debug('settings/'+key, state.settings[key]);
   },
   addScore(state, data) {
     var meta = data.metadata;
@@ -134,8 +142,10 @@ export const mutations = {
     }
   },
   setFireworksDialog(state, value) {
-    console.log(value);
     state.fireworksDialog = value;
+  },
+  setTeamInfo(state, data) {
+    state.myTeam = data;
   }
 }
 
@@ -177,11 +187,20 @@ export const actions = {
       flag: flag
     })
   },
-  async SUBMIT_TEAM_INFO ({ commit }, team) {
+  async LOAD_MY_TEAM_INFO({ commit}) {
+    try {
+      let { data } = await this.$axios.get(`/1.0/team`)
+      commit('setTeamInfo', data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  },
+  async UPDATE_TEAM_INFO ({ commit }, myTeam) {
     return this.$axios.put(`/1.0/team`, {
-      name: team.team,
-      website: team.website,
-      country: team.country,
+      id: myTeam.id,
+      name: myTeam.name,
+      website: myTeam.website,
+      country: myTeam.country,
     })
   },
   async WEBSOCKET_EVENT ({ commit, dispatch }, data) {

@@ -51,7 +51,7 @@ const envConfig = {
 
 module.exports = {
   head: {
-    title: 'NorthSec CTF - Askgod Web UI',
+    title: 'Askgod - NorthSec CTF',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

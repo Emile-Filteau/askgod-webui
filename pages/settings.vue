@@ -110,6 +110,9 @@
 import COUNTRY_CODES from '../assets/country-codes.json'
 
 export default {
+  async created () {
+    await this.$store.dispatch('LOAD_MY_TEAM_INFO');
+  },
   data () {
     return {
       permissions: [
@@ -124,16 +127,13 @@ export default {
         {label: 'Board Hide Others', key: 'board_hide_others'},
       ],
       valid: true,
-      name: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 25) || 'Name must be less than 50 characters',
       ],
-      website: '',
       websiteRules: [
         v => /^(http|https):\/\/[^ "]+$/.test(v) || 'Must be valid a valid URL',
       ],
-      country: null,
       countries: COUNTRY_CODES.map(x => ({
         text: x.country_name,
         value: x.alpha_2,
@@ -142,15 +142,47 @@ export default {
       lazy: false,
     }
   },
+  computed: {
+    name: {
+      get() {
+        console.log(this.$store)
+        return this.$store.state.myTeam.name
+      },
+      set(value) {
+        this.$store.commit('setTeamInfo', {
+          ...this.$store.state.myTeam,
+          name: value,
+        })
+      }
+    },
+    website: {
+      get() {
+        return this.$store.state.myTeam.website
+      },
+      set(value) {
+        this.$store.commit('setTeamInfo', {
+          ...this.$store.state.myTeam,
+          website: value,
+        })
+      }
+    },
+    country: {
+      get() {
+        return this.$store.state.myTeam.country
+      },
+      set(value) {
+        this.$store.commit('setTeamInfo', {
+          ...this.$store.state.myTeam,
+          country: value,
+        })
+      }
+    }
+  },
   methods: {
     save () {
       if (!this.$refs.form.validate()) return;
 
-      let { ok, text } = this.$store.dispatch('SUBMIT_TEAM_INFO', {
-        name: this.name,
-        website: this.website,
-        country: this.country,
-      });
+      let { ok, text } = this.$store.dispatch('UPDATE_TEAM_INFO', this.$store.state.myTeam);
 
       if (ok) {
           this.text = 'Bravo! Team updated successfully.';
