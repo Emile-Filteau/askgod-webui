@@ -34,7 +34,7 @@ export const state = () => ({
       { icon: 'bar_chart', title: 'Timeline', to: '/' },
       { icon: 'view_list', title: 'Scoreboard', to: '/scoreboard' },
       { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' },
-      { icon: 'settings', title: 'Status', to: '/status' }
+      { icon: 'settings', title: 'Settings', to: '/settings' }
     ],
     miniVariant: true,
     right: true,
@@ -44,6 +44,7 @@ export const state = () => ({
   websocketURL: 'wss://askgod.nsec/1.0/events?type=timeline',
   settings: {
     autoRefresh: false,
+    theme: 'dark',
   },
   teams: [],
   scoreboard: [],
@@ -97,6 +98,7 @@ export const mutations = {
     }))
   },
   setStatus (state, data) {
+    console.log(data)
     state.status = {
       is_admin: data.is_admin,
       is_team: data.is_team,
@@ -173,6 +175,13 @@ export const actions = {
   async SUBMIT_FLAG ({ commit }, flag) {
     return this.$axios.post(`/1.0/team/flags`, {
       flag: flag
+    })
+  },
+  async SUBMIT_TEAM_INFO ({ commit }, team) {
+    return this.$axios.put(`/1.0/team`, {
+      name: team.team,
+      website: team.website,
+      country: team.country,
     })
   },
   async WEBSOCKET_EVENT ({ commit, dispatch }, data) {
