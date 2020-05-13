@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import COUNTRIES_BY_ISO_CODES from '../tools/iso_3166_country_codes.json'
+import COUNTRY_CODES from '../assets/country-codes.json'
 
 export default {
   data () {
@@ -134,7 +134,7 @@ export default {
         v => /^(http|https):\/\/[^ "]+$/.test(v) || 'Must be valid a valid URL',
       ],
       country: null,
-      countries: COUNTRIES_BY_ISO_CODES.map(x => ({
+      countries: COUNTRY_CODES.map(x => ({
         text: x.country_name,
         value: x.alpha_2,
       })),
