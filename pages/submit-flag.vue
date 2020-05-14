@@ -37,7 +37,7 @@
           v-model="snackbar">
           {{ text }}
           <v-btn
-            flat
+            text
             @click.native="snackbar = false">
             Close
           </v-btn>
@@ -48,15 +48,14 @@
 </template>
 
 <script>
+import { notify } from '~/components/mixins/notify'
+
 export default {
+  mixins: [notify],
   data () {
     return {
       valid: true,
       flag: '',
-      snackbar: false,
-      color: '',
-      timeout: 6000,
-      text: ''
     }
   },
   computed: {
@@ -65,26 +64,19 @@ export default {
     }
   },
   methods: {
-    submit () {
-      if (this.$refs.form.validate()) {
-        let { ok, text } = this.$store.dispatch('SUBMIT_FLAG', this.flag);
-
+    async submit () {
+      if (!this.$refs.form.validate()) return;
+      try {
+        let { ok, text } = await this.$store.dispatch('SUBMIT_FLAG', this.flag);
         if (ok) {
-            console.log(data);
-            this.text = 'Bravo! The flag is valid.';
-            this.color = 'success';
-            this.snackbar = true;
+          this.notify('Bravo! The flag is valid.', 'success')
         } else if (text) {
-          text().then(message => {
-            this.text = message;
-            this.color = 'error';
-            this.snackbar = true;
-          })
+          text().then(message => this.notify(message))
         } else {
-          this.text = 'Un exepected error occurred!';
-          this.color = 'error';
-          this.snackbar = true;
+          console.error('Unhandled client error')
         }
+      } catch (error) {
+        this.notify('Un exepected error occurred!')
       }
     }
   }

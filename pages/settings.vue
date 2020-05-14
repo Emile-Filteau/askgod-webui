@@ -34,14 +34,6 @@
                v-model="country"
                outlined
               ></v-autocomplete>
-              <!-- <v-select
-
-                :items="items"
-                :rules="[v => !!v || 'Item is required']"
-                label="Item"
-                required
-                outlined
-              ></v-select> -->
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -52,14 +44,6 @@
               @click="save"
             >
               Save
-            </v-btn>
-
-            <v-btn
-              color="error"
-              class="mr-4"
-              @click="reset"
-            >
-              Reset Form
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -103,13 +87,28 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+      :timeout="timeout"
+      :color="color"
+      bottom
+      left
+      v-model="snackbar">
+      {{ text }}
+      <v-btn
+        text
+        @click.native="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
 import COUNTRY_CODES from '../assets/country-codes.json'
+import { notify } from '~/components/mixins/notify'
 
 export default {
+  mixins: [notify],
   async created () {
     await this.$store.dispatch('LOAD_MY_TEAM_INFO');
   },
@@ -145,7 +144,6 @@ export default {
   computed: {
     name: {
       get() {
-        console.log(this.$store)
         return this.$store.state.myTeam.name
       },
       set(value) {
@@ -179,29 +177,16 @@ export default {
     }
   },
   methods: {
-    save () {
+    async save () {
       if (!this.$refs.form.validate()) return;
-
-      let { ok, text } = this.$store.dispatch('UPDATE_TEAM_INFO', this.$store.state.myTeam);
-
-      if (ok) {
-          this.text = 'Bravo! Team updated successfully.';
-          this.color = 'success';
-          this.snackbar = true;
-      } else if (text) {
-        text().then(message => {
-          this.text = message;
-          this.color = 'error';
-          this.snackbar = true;
-        })
-      } else {
-        this.text = 'Un exepected error occurred!';
-        this.color = 'error';
-        this.snackbar = true;
+      try {
+        const { status, statusText } = await this.$store.dispatch('UPDATE_TEAM_INFO', this.$store.state.myTeam)
+        status === 200 ?
+          this.notify('Bravo! Team updated successfully.', 'success') :
+          this.notify(statusText)
+      } catch (err) {
+        this.notify('Un exepected error occurred!')
       }
-    },
-    reset () {
-      this.$refs.form.reset()
     }
   }
 }
