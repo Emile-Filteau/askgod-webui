@@ -40,7 +40,11 @@ export const state = () => ({
     right: true,
     rightDrawer: false,
   },
-  fireworksDialog: false,
+  fireworksDialog: true,
+  latestScore: {
+    teamName: null,
+    score: null,
+  },
   settings: {
     autoRefresh: false,
     theme: 'dark',
@@ -139,8 +143,11 @@ export const mutations = {
       state.timeline[index].score.push(meta.score);
     }
   },
-  setFireworksDialog(state, {show = true} = {}) {
-    state.fireworksDialog = show;
+  setFireworksDialog(state, data) {
+    state.fireworksDialog = data.show;
+    if (data.score) {
+      state.latestScore = data.score
+    }
   },
   setTeamInfo(state, data) {
     state.myTeam = data;
@@ -203,8 +210,8 @@ export const actions = {
   },
   async WEBSOCKET_EVENT ({ commit, dispatch }, data) {
     commit('addScore', data)
-    commit('setFireworksDialog', {show: true})
     setTimeout(() => commit('setFireworksDialog', {show: false}), 3000)
+    commit('setFireworksDialog', {show: true, score: data})
     dispatch('LOAD_SCOREBOARD')
   }
 }
@@ -225,6 +232,7 @@ export const getters = {
   theme: state => state.settings.theme,
   top3: state => state.scoreboard.slice(0, 3),
   scoreboard: state => state.scoreboard,
+  latestScore: state => state.latestScore,
   timelineChartData: state => {
     return {
       datasets: state.timeline.map(({team, score}) => {
