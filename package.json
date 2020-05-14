@@ -19,7 +19,8 @@
     "test": "NODE_ENV=test ava --serial --verbose",
     "test:ci": "NODE_ENV=test ava --serial --verbose --watch",
     "test:coverage": "nyc ava",
-    "serve:api": "json-server ./test/api/server.js --port 3004 --routes ./test/api/routes.json"
+    "serve:api": "json-server ./test/api/server.js --port 3004 --routes ./test/api/routes.json",
+    "serve:ws": "node ./test/websocket-server-test.js"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.10.3",

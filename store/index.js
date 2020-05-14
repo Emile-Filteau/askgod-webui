@@ -106,7 +106,6 @@ export const mutations = {
     }))
   },
   setStatus (state, data) {
-    console.log(data)
     state.status = {
       is_admin: data.is_admin,
       is_team: data.is_team,
@@ -243,7 +242,9 @@ export const getters = {
         }
       }).sort(function (a, b) {
         // Sort by total score
-        return b.data[b.data.length - 1].y - a.data[a.data.length - 1].y
+        const [, aLast = {y: 0}] = a.data
+        const [, bLast = {y: 0}] = b.data
+        return aLast.y - bLast.y
       }),
     };
   }

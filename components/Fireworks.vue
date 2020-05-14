@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-toolbar flat="true">
+    <v-toolbar :flat="true">
       <v-btn
         icon
         @click.native="closeDialog">

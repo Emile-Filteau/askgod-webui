@@ -4,7 +4,7 @@ const moment = require('moment')
 faker.seed(666);
 
 const START_TIME = moment().subtract(2, 'days')
-const MAX_TEAM_COUNT = 2
+const MAX_TEAM_COUNT = 80
 const MAX_FLAG_VALUE = 10
 const TOTAL_FLAG_COUNT = 50
 
