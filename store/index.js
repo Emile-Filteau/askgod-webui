@@ -41,7 +41,6 @@ export const state = () => ({
     rightDrawer: false,
   },
   fireworksDialog: false,
-  websocketURL: 'wss://askgod.nsec/1.0/events?type=timeline',
   settings: {
     autoRefresh: false,
     theme: 'dark',
@@ -140,8 +139,8 @@ export const mutations = {
       state.timeline[index].score.push(meta.score);
     }
   },
-  setFireworksDialog(state, value) {
-    state.fireworksDialog = value;
+  setFireworksDialog(state, {show = true} = {}) {
+    state.fireworksDialog = show;
   },
   setTeamInfo(state, data) {
     state.myTeam = data;
@@ -203,8 +202,10 @@ export const actions = {
     })
   },
   async WEBSOCKET_EVENT ({ commit, dispatch }, data) {
-    commit('addScore', data);
-    dispatch('LOAD_SCOREBOARD');
+    commit('addScore', data)
+    commit('setFireworksDialog', {show: true})
+    setTimeout(() => commit('setFireworksDialog', {show: false}), 3000)
+    dispatch('LOAD_SCOREBOARD')
   }
 }
 

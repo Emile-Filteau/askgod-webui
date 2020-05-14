@@ -64,8 +64,8 @@ module.exports = {
   },
   mode: 'spa',
   plugins: [
-    { src: '~/plugins/localStorage.js', ssr: false },
-    { src: '~/plugins/websocket.js', ssr: false }
+    '~/plugins/localStorage.client.js',
+    '~/plugins/websocket.client.js',
   ],
   // Nuxt.js dev-modules
   buildModules: [
@@ -95,4 +95,7 @@ module.exports = {
   loading: { color: '#3B8070' },
   // environment specific options
   ...envGenerator(process.env.DEPLOY_ENV),
+  env: {
+    WS_URL: process.env.NODE_ENV !== 'production' ? 'wss://localhost:8080': 'wss://askgod.nsec/1.0/events?type=timeline'
+  }
 }

@@ -137,8 +137,8 @@
         get () {
           return this.$store.state.fireworksDialog;
         },
-        set () {
-          this.$store.commit('setFireworksDialog', true);
+        set (show) {
+          this.$store.commit('setFireworksDialog', show);
         }
       },
       fillHeight() {
