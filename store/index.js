@@ -1,3 +1,4 @@
+import emojiFlags from 'emoji-flags'
 import moment from 'moment';
 
 // Taken from http://htmlcolorcodes.com/color-chart/
@@ -23,6 +24,8 @@ export const COLORS = [
   '#9e9e9e' /* Grey */,
   '#607d8b' /* Blue Grey */
 ];
+
+const getTeamColor = (id) => COLORS[id % COLORS.length]
 
 export const state = () => ({
   app: {
@@ -104,6 +107,8 @@ export const mutations = {
       rank: index + 1,
       lastFlag: x.last_submit_time,
       score: x.value,
+      color: getTeamColor(x.team.id),
+      flagEmoji: emojiFlags.countryCode(x.team.country).emoji,
     }))
   },
   setStatus (state, data) {
@@ -239,7 +244,7 @@ export const getters = {
   timelineChartData: state => {
     return {
       datasets: state.timeline.map(({team, score}) => {
-        let color = COLORS[team.id % COLORS.length];
+        const color = getTeamColor(team.id)
         return {
           teamId: team.id,
           label: team.name,

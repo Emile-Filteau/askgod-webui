@@ -16,7 +16,7 @@ module.exports = Array.from({length: MAX_TEAM_COUNT}, (_, i) => ({
 	"team": {
 		"name": faker.company.companyName(),
 		"country": faker.address.countryCode(),
-		"website": faker.internet.url(),
+		"website": faker.random.boolean() ? faker.internet.url() : null,
 		"id": i + 1
 	},
 	"value": getRandomInt(MAX_TEAM_TOTAL),

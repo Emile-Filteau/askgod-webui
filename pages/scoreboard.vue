@@ -4,8 +4,8 @@
       <v-col
         lg="4"
         cols="sm"
-        v-for="i in top3"
-        :key="`${i.id}`"
+        v-for="(team, index) in top3"
+        :key="`${team.id}`"
       >
         <v-card>
           <v-row class="no-gutters">
@@ -13,8 +13,13 @@
               <div class="blue fill-height">&nbsp;</div>
             </div>
             <div class="col pa-3 py-4 blue--text">
-              <h5 class="text-truncate text-uppercase">{{ i.name }}</h5>
-              <h1>{{ i.score }}</h1>
+              <v-row>
+                <v-col>
+                  <h5 class="text-truncate text-uppercase">{{ team.name }}</h5>
+                  <h1>{{ team.score }}</h1>
+                </v-col>
+
+              </v-row>
             </div>
           </v-row>
         </v-card>
@@ -40,11 +45,25 @@
             :search="search"
             :items-per-page="20"
             class="elevation-1">
+            <template v-slot:item.rank="{ item }">
+              <v-chip
+                class="ma-2"
+                :color="item.color"
+                outlined
+              >
+                {{item.rank}}
+              </v-chip>
+            </template>
             <template v-slot:item.name="{ item }">
               <a
+                v-if="item.website"
                 :href="item.website"
                 target="_blank"
                 rel="noopener">{{ item.name }}</a>
+              <span v-if="!item.website">{{ item.name }}</span>
+            </template>
+            <template v-slot:item.country="{ item }">
+              <span class="title">{{ item.flagEmoji }}</span>
             </template>
             <template v-slot:item.lastFlag="{ item }">
               {{ $moment(item.lastFlag).fromNow() }}
@@ -67,7 +86,7 @@ export default {
         { text: 'Rank', value: 'rank', sortable: false},
         { text: 'Name', value: 'name', sortable: false},
         { text: 'Score', value: 'score', sortable: false, align: 'center'},
-        { text: 'Country', value: 'country', sortable: false},
+        { text: 'Country', value: 'country', sortable: false, align: 'center' },
         { text: 'Last Flag', value: 'lastFlag', sortable: false},
       ],
       refresher: null,
