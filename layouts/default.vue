@@ -5,6 +5,7 @@
       v-model="app.drawer"
       fixed
       app>
+      <NorthSecLogo class="nsec-logo" />
       <v-subheader>Menu</v-subheader>
       <v-list>
         <v-list-item
@@ -85,8 +86,9 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import Fireworks from '~/components/Fireworks';
+  import { mapGetters } from 'vuex'
+  import Fireworks from '~/components/Fireworks'
+  import NorthSecLogo from '~/components/NorthSecLogo'
 
   export default {
     async created () {
@@ -96,7 +98,8 @@
       dialog: false,
     }),
     components: {
-      Fireworks
+      Fireworks,
+      NorthSecLogo
     },
     computed: {
       title() {
@@ -154,5 +157,9 @@
 .sponsors-wrapper {
   padding: 0 2rem;
   text-align: center;
+}
+.nsec-logo {
+  padding: 1rem;
+  max-width: 50%;
 }
 </style>

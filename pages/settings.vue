@@ -52,9 +52,7 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-toolbar>
-            <v-toolbar-title>Status</v-toolbar-title>
-          </v-toolbar>
+          <v-card-title>Status</v-card-title>
           <v-list subheader>
             <v-subheader>Permissions</v-subheader>
             <v-list-item
