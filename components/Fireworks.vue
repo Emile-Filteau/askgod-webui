@@ -31,9 +31,13 @@ export default {
       oldRank: 8
     }
   },
+  mounted() {
+    // Auto close dialog after 5 seconds
+    setTimeout(() => this.closeDialog(), 5 * 1000)
+  },
   methods: {
     closeDialog () {
-      this.$store.commit('setFireworksDialog', false);
+      this.$store.commit('setFireworksDialog', {show: false});
     }
   }
 }
