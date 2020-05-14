@@ -3,37 +3,40 @@
     <v-toolbar :flat="true">
       <v-btn
         icon
-        @click.native="closeDialog">
+        @click="closeDialog">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-toolbar-title>{{ teamName }} scored!</v-toolbar-title>
+      <v-toolbar-title>{{ latestScore.teamName }} scored!</v-toolbar-title>
     </v-toolbar>
-    <div class="pyro">
-      <div class="before"/>
-      <div class="after"/>
-    </div>
-    <v-card-text>
-      <p class="text-md-center display-4">{{ score }} PTS</p>
-      <p class="text-md-center display-1">scored by</p>
-      <p class="text-md-center display-4">{{ teamName }}</p>
-    </v-card-text>
+
+    <v-container fill-height fluid>
+      <v-row align="center" justify="center">
+        <v-col>
+          <p class="text-md-center display-4">{{ latestScore.score }} PTS</p>
+          <p class="text-md-center display-1">scored by</p>
+          <p class="text-md-center display-4">{{ latestScore.teamName }}</p>
+        </v-col>
+      </v-row>
+      <div class="pyro">
+        <div class="before"/>
+        <div class="after"/>
+      </div>
+    </v-container>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
-  data () {
-    return {
-      teamName: 'NorthSec',
-      score: '7',
-      newRank: 7,
-      oldRank: 8
-    }
-  },
   mounted() {
     // Auto close dialog after 5 seconds
     setTimeout(() => this.closeDialog(), 5 * 1000)
+  },
+  computed: {
+    ...mapGetters([
+      'latestScore',
+    ]),
   },
   methods: {
     closeDialog () {

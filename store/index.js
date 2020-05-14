@@ -25,7 +25,6 @@ export const COLORS = [
 ];
 
 export const state = () => ({
-  sidebar: false,
   app: {
     clipped: true,
     drawer: true,
@@ -40,7 +39,8 @@ export const state = () => ({
     right: true,
     rightDrawer: false,
   },
-  fireworksDialog: true,
+
+  fireworksDialog: false,
   latestScore: {
     teamName: null,
     score: null,
@@ -48,6 +48,7 @@ export const state = () => ({
   settings: {
     autoRefresh: false,
     theme: 'dark',
+    animationEnabled: false,
   },
   myTeam: {
     id: null,
@@ -92,9 +93,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  toggleSidebar (state) {
-    state.sidebar = !state.sidebar;
-  },
   setTeams (state, data) {
     state.teams = data;
   },
@@ -122,10 +120,10 @@ export const mutations = {
       }
     }
   },
-  setTimeline (state, data) {
+  setTimeline(state, data) {
     state.timeline = data;
   },
-  toggle (state, key) {
+  toggle(state, key) {
     state.app[key] = !state.app[key];
     console.debug('app/'+key, state.app[key]);
   },
@@ -144,9 +142,14 @@ export const mutations = {
     }
   },
   setFireworksDialog(state, data) {
-    state.fireworksDialog = data.show;
-    if (data.score) {
-      state.latestScore = data.score
+    if (state.settings.animationEnabled) {
+      state.fireworksDialog = data.show;
+      if (data.score) {
+        state.latestScore = data.score
+      }
+    } else {
+      state.fireworksDialog = false;
+      console.warn('Animation disabled')
     }
   },
   setTeamInfo(state, data) {

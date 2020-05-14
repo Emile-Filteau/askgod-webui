@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      :clipped="app.clipped"
-      v-model="app.drawer"
+      app
+      clipped
       fixed
-      app>
-      <NorthSecLogo class="nsec-logo" />
-      <v-subheader>Menu</v-subheader>
+      v-model="drawer"
+      >
+      <v-subheader>{{ eventName }}</v-subheader>
       <v-list>
         <v-list-item
           router
@@ -49,22 +49,27 @@
             <v-list-item-title>Auto Refresh</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-switch
+              v-model="animation"
+              hide-details
+              inset>
+              ></v-switch>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Animation</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
-      <!-- <v-subheader>Sponsors</v-subheader>
-      <div class="sponsors-wrapper">
-        <img
-          src="~/assets/images/sponsors_openface.svg"
-          width="100%"
-          alt="OpenFace">
-      </div> -->
     </v-navigation-drawer>
 
     <v-app-bar
       app
       clipped-left
     >
-      <v-app-bar-nav-icon @click.stop="toggleDrawer('drawer')"/>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+      <NorthSecLogo class="nsec-logo" />
     </v-app-bar>
 
     <v-content>
@@ -77,9 +82,8 @@
     <v-dialog
       v-model="fireworksDialog"
       fullscreen
-      hide-overlay
       transition="dialog-bottom-transition"
-      scrollable>
+      >
       <Fireworks/>
     </v-dialog>
   </v-app>
@@ -96,13 +100,15 @@
     },
     data: vm => ({
       dialog: false,
+      drawer: null,
+
     }),
     components: {
       Fireworks,
       NorthSecLogo
     },
     computed: {
-      title() {
+      eventName() {
         return this.$store.state.status.event_name;
       },
       ...mapGetters([
@@ -110,10 +116,10 @@
         'menuItems',
       ]),
       autoRefresh: {
-        get () {
+        get() {
           return this.$store.state.settings.autoRefresh;
         },
-        set (value) {
+        set(value) {
           this.$store.commit('updateSettings', {
             key: 'autoRefresh',
             value: !value,
@@ -121,11 +127,11 @@
         }
       },
       theme: {
-        get () {
+        get() {
           this.$vuetify.theme.dark = this.$store.state.settings.theme;
           return this.$vuetify.theme.dark;
         },
-        set (value) {
+        set(value) {
           this.$vuetify.theme.dark = value
           this.$store.commit('updateSettings', {
             key: 'theme',
@@ -133,21 +139,27 @@
           });
         }
       },
+      animation: {
+        get() {
+          return this.$store.state.settings.animationEnabled
+        },
+        set(value) {
+          this.$store.commit('updateSettings', {
+            key: 'animationEnabled',
+            value: !value,
+          });
+        }
+      },
       fireworksDialog: {
-        get () {
+        get() {
           return this.$store.state.fireworksDialog;
         },
-        set (show) {
-          this.$store.commit('setFireworksDialog', show);
+        set() {
+          this.$store.commit('setFireworksDialog', {show: false});
         }
       },
       fillHeight() {
         return this.$route.name === 'index';
-      }
-    },
-    methods: {
-      toggleDrawer(key) {
-        this.$store.commit('toggle', key);
       }
     }
   }
@@ -160,6 +172,8 @@
 }
 .nsec-logo {
   padding: 1rem;
-  max-width: 50%;
+  vertical-align: middle;
+  height: 64px !important;
+  width: auto !important;
 }
 </style>
