@@ -183,7 +183,6 @@
       },
       ...mapGetters([
         'app',
-        'menuItems',
       ]),
       autoRefresh: {
         get() {

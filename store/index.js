@@ -37,10 +37,8 @@ export const state = () => ({
   },
   fireworksDialog: false,
   latestScore: {
-    teamName: null,
-    score: {
-      value: null,
-    },
+    team: null,
+    score: null,
   },
   settings: {
     autoRefresh: false,
@@ -132,7 +130,7 @@ export const mutations = {
   },
   addScore(state, data) {
     const {score, teamid} = data.metadata;
-    const index = state.timeline.findIndex(i => i.team.id === teamid);
+    const index = state.timeline.findIndex(x => x.team.id === teamid);
 
     if (index >= 0) {
       // Append new score if team present in dataset
@@ -141,41 +139,9 @@ export const mutations = {
 
     const team = state.scoreboard.find(x => x.id === teamid);
     if (team) {
-      state.latestScore = {team, score}
-    }
-
-    if (state.settings.animationEnabled) {
-      var filename = null
-      var audio = null
-
-      const AUDIO_SOUND_MAP = {
-        a: 'yes-yes-yes.mp3',
-        b: 'amazing.mp3',
-        c: 'goodjobletsseesomemore.mp3',
-        d: 'security-warning.mp3',
-        e: 'security-alert.mp3',
-        f: 'success.mp3',
-      }
-
-  		if (score.value >= 8) {
-        filename = AUDIO_SOUND_MAP.a
-      } else if (score.value >= 6) {
-        filename = AUDIO_SOUND_MAP.b
-      } else if (score.value === 2) {
-        filename = AUDIO_SOUND_MAP.c
-      } else if (score.value === 0) {
-        filename = Math.random() < 0.5 ?
-          AUDIO_SOUND_MAP.d :
-          AUDIO_SOUND_MAP.e ;
-      } else {
-  			 filename = AUDIO_SOUND_MAP.f
-      }
-
-      try {
-        audio = new Audio(`/announcesounds/${filename}`)
-        audio.play()
-      } catch (err) {
-        console.error(err)
+      state.latestScore = {
+        team: {...team},
+        score: score.value,
       }
     }
   },
@@ -284,16 +250,6 @@ export const actions = {
 }
 
 export const getters = {
-  // menuItems: state => {
-  //   return state.app.items.filter( i => {
-  //
-  //     if (i.to === '/submit-flag') {
-  //       return state.status.is_team;
-  //     }
-  //
-  //     return true;
-  //   });
-  // },
   app: state => ({...state.app}),
   autoRefresh: state => state.settings.autoRefresh,
   theme: state => state.settings.theme,

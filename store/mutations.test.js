@@ -15,37 +15,39 @@ describe('toggle', () => {
   })
 })
 
-describe('setFireworksDialog', () => {
+describe('addScore', () => {
+  const team = {
+    team: {
+      id: 42,
+      country: 'ca',
+      name: 'ACME',
+    },
+    score: [],
+  };
   const state = {
-    fireworksDialog: false,
     latestScore: {
-      teamName: null,
+      team: null,
       score: null,
     },
-    settings: {
-      animationEnabled: false,
-    }
+    scoreboard: [team],
+    timeline: [team],
   }
   const data = {
-    show: true,
-    score: {
-      teamName: 'foo',
-      score: 2
+    metadata: {
+      score: {value: 6},
+      teamid: 42
     }
   }
 
-  test('with animation disabled', () => {
-    mutations.setFireworksDialog(state, data)
-    expect(state.fireworksDialog).toBe(false)
-    expect(console.warn).toHaveBeenCalled();
-  })
-
-  test('with animation enabled', () => {
-    state.settings.animationEnabled = true
-    mutations.setFireworksDialog(state, data)
+  test('store last score info', () => {
+    mutations.addScore(state, data)
     expect(state.latestScore).toEqual({
-      teamName: 'foo',
-      score: 2,
+      team: {
+        id: 42,
+        country: 'ca',
+        name: 'ACME',
+      },
+      score: 6,
     })
   })
 })

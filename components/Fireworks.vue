@@ -6,27 +6,25 @@
         @click="closeDialog">
         <v-icon>close</v-icon>
       </v-btn>
+      <v-toolbar-title v-if="!showAnimation">Waiting score updates...</v-toolbar-title>
     </v-toolbar>
+    <v-progress-linear
+      v-if="!showAnimation"
+      indeterminate
+    ></v-progress-linear>
     <v-container fill-height fluid class="top-spacing">
       <v-row align="center" justify="center">
         <v-col v-if="showAnimation">
-          <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score.value }} pts</p>
-          <p class="text-md-center display-3">{{ latestScore.team.name }}</p>
+          <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score }} pts</p>
           <p class="text-md-center display-3">
-            <span class="flag-icon" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
+            <span class="flag-icon flag-icon-squared elevation-4 display-2" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
+            <span>{{ latestScore.team.name }}</span>
+            <span class="flag-icon flag-icon-squared elevation-4 display-2" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
+          </p>
+          <p class="text-md-center">
+            <img :src="imgUrl" />
           </p>
         </v-col>
-        <!-- <v-col v-else>
-          <p class="text-md-center display-3">Waiting score updates!</p>
-          <br/>
-          <div class="text-center">
-            <v-progress-circular
-              :size="70"
-              color="primary"
-              indeterminate
-            ></v-progress-circular>
-          </div>
-        </v-col> -->
       </v-row>
       <div class="fireworks--wrapper" v-if="showAnimation">
         <div class="pyro">
@@ -41,15 +39,52 @@
 <script>
 import { mapGetters } from 'vuex'
 
+const ANIMATION_MAP = {
+  a: {audio: 'yes-yes-yes.mp3', img: '8pts.gif'},
+  b: {audio: 'amazing.mp3', img: '6pts.gif'},
+  c: {audio: 'security-warning.mp3', img: '0pts.gif'},
+  d: {audio: 'security-alert.mp3', img: '0pts.gif'},
+  e: {audio: 'success.mp3', img: 'default.gif'},
+}
+
 export default {
   data() {
     return {
       showAnimation: false,
+      imgUrl: null,
     }
   },
   watch: {
     latestScore(newVal, oldVal) {
+      let {score} = newVal;
+      let audio = ANIMATION_MAP.e.audio
+      let imgUrl = ANIMATION_MAP.e.img
+
+  		if (score >= 8) {
+        audio = ANIMATION_MAP.a.audio
+        imgUrl = ANIMATION_MAP.a.img
+      } else if (score >= 6) {
+        audio = ANIMATION_MAP.b.audio
+        imgUrl = ANIMATION_MAP.b.img
+      } else if (score <= 0) {
+        let animation = Math.random() < 0.5 ?
+          ANIMATION_MAP.c :
+          ANIMATION_MAP.d ;
+        audio = animation.audio
+        imgUrl = animation.img
+      }
+
       this.showAnimation = true
+      this.imgUrl = `/announces/gifs/${imgUrl}`
+
+      try {
+        audio = new Audio(`/announces/sounds/${audio}`)
+        audio.play()
+      } catch (err) {
+        console.error(err)
+      }
+
+      // Hide team score after 5 seconds
       setTimeout(() => this.showAnimation = false, 5000)
     }
   },
@@ -71,9 +106,17 @@ export default {
 }
 </script>
 
+
 <style scoped>
+.flag-icon:first-child {
+  margin-right: 1rem;
+}
+.flag-icon:last-child {
+  margin-left: 1rem;
+}
+
 .top-spacing {
-  top: 15vh;
+  top: 10vh;
   position: relative;
 }
 
