@@ -13,12 +13,6 @@
           <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score.value }} pts</p>
           <p class="text-md-center display-3">{{ latestScore.team.name }}</p>
           <p class="text-md-center display-3">{{ latestScore.team.flagEmoji }}</p>
-          <div class="fireworks--wrapper">
-            <div class="pyro">
-              <div class="before"/>
-              <div class="after"/>
-            </div>
-          </div>
         </v-col>
         <!-- <v-col v-else>
           <p class="text-md-center display-3">Waiting score updates!</p>
@@ -32,8 +26,13 @@
           </div>
         </v-col> -->
       </v-row>
+      <div class="fireworks--wrapper" v-if="showAnimation">
+        <div class="pyro">
+          <div class="before"/>
+          <div class="after"/>
+        </div>
+      </div>
     </v-container>
-
   </v-card>
 </template>
 
@@ -77,22 +76,19 @@ export default {
 }
 
 .fireworks--wrapper {
+  position: absolute;
+  display: block;
+  width: 98vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
 /* Source: https://codepen.io/yshlin/pen/ylDEk */
-.theme--dark .card {
-  background-color: rgba(33, 33, 33, .98);
-}
-
-.card__text {
-  margin: auto 0;
-}
-
-.pyro > .before, .pyro > .after {
-  position: absolute;
+.pyro > .before,
+.pyro > .after {
+  position: relative;
   width: 5px;
   height: 5px;
   border-radius: 50%;
