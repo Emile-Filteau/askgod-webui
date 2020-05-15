@@ -12,7 +12,7 @@
     "deploy:gh-pages": "push-dir --dir=dist --branch=gh-pages --cleanup",
     "generate": "nuxt generate",
     "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate",
-    "start": "npm run dev",
+    "start": "npm-run-all --parallel serve:* dev",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
@@ -53,6 +53,7 @@
     "jest": "^26.0.1",
     "jest-serializer-vue": "^2.0.2",
     "json-server": "^0.16.1",
+    "npm-run-all": "^4.1.5",
     "push-dir": "^0.4.1",
     "vue-jest": "^3.0.5",
     "ws": "^6.2.1"
