@@ -1,5 +1,17 @@
 <template>
   <v-container>
+    <v-alert
+      :value="askgodUnreachable"
+      dismissible
+      prominent
+      color="error"
+      outlined
+      text
+      transition="fade-transition"
+    >
+      <div class="title">Unable to access AskGod</div>
+      <div>Please visit <a target="blank" href="https://askgod.nsec">askgod.nsec</a> and make sure it's reachable.</div>
+    </v-alert>
     <v-flex>
       <timeline
         class="timeline"
@@ -21,11 +33,17 @@ export default {
   data () {
     return {
       refresher: null,
+      askgodUnreachable: false,
     }
   },
-  created () {
-    if (this.autoRefresh) {
-      this.startRefresher();
+  async created () {
+    try {
+      this.$store.dispatch('LOAD_TIMELINE');
+      if (this.autoRefresh) {
+        this.startRefresher();
+      }
+    } catch (e) {
+      this.askgodUnreachable = true
     }
   },
   computed: {
@@ -52,13 +70,6 @@ export default {
     stopRefresher () {
       clearInterval(this.refresher);
       console.log('Timeline refresher stopped');
-    }
-  },
-  async fetch ({ store }) {
-    try {
-      await store.dispatch('LOAD_TIMELINE');
-    } catch (e) {
-      console.log(e)
     }
   }
 }

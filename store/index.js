@@ -195,12 +195,8 @@ export const mutations = {
 
 export const actions = {
   async LOAD_TIMELINE ({ commit }) {
-    try {
-      let { data } = await this.$axios.get(`/1.0/timeline`)
-      commit('setTimeline', data)
-    } catch (error) {
-      console.error(error.message)
-    }
+    let { data } = await this.$axios.get(`/1.0/timeline`)
+    commit('setTimeline', data)
   },
   async LOAD_TEAMS ({ commit }) {
     try {
