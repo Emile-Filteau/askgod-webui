@@ -96,7 +96,9 @@
 
   export default {
     async created () {
-      await this.$store.dispatch('LOAD_STATUS');
+      const {query} = this.$router.currentRoute
+      this.$store.dispatch('LOAD_STATE_FROM_URL', query)
+      await this.$store.dispatch('LOAD_STATUS')
     },
     data: vm => ({
       dialog: false,
@@ -122,7 +124,7 @@
         set(value) {
           this.$store.commit('updateSettings', {
             key: 'autoRefresh',
-            value: !value,
+            value: value,
           });
         }
       },
@@ -146,7 +148,7 @@
         set(value) {
           this.$store.commit('updateSettings', {
             key: 'animationEnabled',
-            value: !value,
+            value: value,
           });
         }
       },

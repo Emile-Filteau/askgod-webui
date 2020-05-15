@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
 const moment = require('moment');
-const sample = require('lodash/sample');
+const axios = require('axios');
 
 const server = https.createServer({
   cert: fs.readFileSync('.env/local/localhost.pem'),
@@ -32,33 +32,46 @@ wss.on('close', function close() {
   clearInterval(healthCheckLoop);
 });
 
+const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss.SSS'
 const MESSAGE_INTERVAL = 10 * 1000
-var scoreTotal = 18
-var counter = 0
-var now = moment()
+const now = moment()
 
-const sendMessageLoop = setInterval(() => {
-  counter++;
-  var flagValue = getRandomInt(10);
-  var teamid = sample([1, 2, 6]);
-  var submit_time = now.add(1, 'hour');
-  scoreTotal += flagValue;
+const sendMessageLoop = setInterval(async () => {
+  let flagValue = getRandomInt(10);
+  let randomTeamID = getRandomInt(5);
 
-  console.log(counter, scoreTotal, submit_time.format('YYYY-MM-DDTHH:mm:ss'));
+  // Add the score to the scoreboard
+  const { data } = await axios.get(`http://localhost:3004/1.0/scoreboard`)
+  const team = data.find(x => x.id === randomTeamID)
+
+  if (!team) return;
+
+  team.value += flagValue;
+  team.last_submit_time = now.utc().format(DATE_FORMAT) + 'Z'
+
+  try {
+    const {ok} = await axios.put(`http://localhost:3004/scoreboard/${team.id}`, team)
+    console.log(`${team.team.name} / Pts: ${flagValue} / Total: ${team.value}`);
+  } catch (err) {
+    console.debug(team)
+    console.error(err.message)
+  }
 
   const msg = JSON.stringify({
     metadata: {
       type: 'score-updated',
-      teamid: teamid,
+      teamid: team.id,
       score: {
-        submit_time: submit_time.format('YYYY-MM-DDTHH:mm:ss.SSS')+'Z',
+        submit_time: team.last_submit_time,
         value: flagValue,
-        total: scoreTotal
+        total: team.value
       }
     }
   });
 
   wss.clients.forEach(ws => ws.send(msg))
+
+  // Try fake put on scoreboard for team
 }, MESSAGE_INTERVAL);
 
 const healthCheckLoop = setInterval(() => {

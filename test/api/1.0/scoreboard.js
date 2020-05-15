@@ -20,5 +20,7 @@ module.exports = Array.from({length: MAX_TEAM_COUNT}, (_, i) => ({
 		"id": i + 1
 	},
 	"value": getRandomInt(MAX_TEAM_TOTAL),
-	"last_submit_time": START_TIME.add(getRandomInt(5), 'minutes')
+	"last_submit_time": START_TIME.add(getRandomInt(5), 'minutes'),
+	// FIXME Maybe used _id from json-server ?
+	"id": i + 1,
 }))

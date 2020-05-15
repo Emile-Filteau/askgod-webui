@@ -133,9 +133,8 @@ export const mutations = {
   },
   updateSettings(state, obj) {
     let { key, value } = obj;
-    // The state need's to be mutated here
-    state.settings[key] = !state.settings[key];
-    console.debug('settings/'+key, state.settings[key]);
+    state.settings[key] = value;
+    console.debug(`settings/${key}:${value}`);
   },
   addScore(state, data) {
     const {score, teamid} = data.metadata;
@@ -227,6 +226,46 @@ export const actions = {
       console.error(error.message)
     }
   },
+
+  LOAD_STATE_FROM_URL ({ state, commit }, query) {
+    const {
+      animation,
+      theme,
+      refresh,
+    } = query
+
+    const isBool = x => typeof x === 'boolean'
+
+
+    let isValidAnimation = isBool(state.settings.animationEnabled)
+    let isCurrentAnimation = state.settings.animationEnabled === animation
+
+    if (animation && isValidAnimation && !isCurrentAnimation) {
+      commit('updateSettings', {
+        key: 'animationEnabled',
+        value: animation,
+      })
+    }
+
+    let isValidRefresh = isBool(state.settings.autoRefresh)
+    let isCurrentRefresh = state.settings.autoRefresh === refresh
+    if (refresh && isValidRefresh && !isCurrentRefresh) {
+      commit('updateSettings', {
+        key: 'autoRefresh',
+        value: refresh,
+      })
+    }
+
+    let isValidTheme = ['dark', 'light'].includes(theme)
+    let isCurrentTheme = state.settings.theme === theme
+    if (theme && isValidTheme && !isCurrentTheme) {
+      commit('updateSettings', {
+        key: 'theme',
+        value: theme === 'dark',
+      })
+    }
+  },
+
   async SUBMIT_FLAG ({ commit }, flag) {
     return this.$axios.post(`/1.0/team/flags`, {
       flag: flag
