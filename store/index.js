@@ -31,12 +31,6 @@ export const state = () => ({
     clipped: true,
     drawer: true,
     fixed: false,
-    items: [
-      { icon: 'bar_chart', title: 'Timeline', to: '/' },
-      { icon: 'view_list', title: 'Scoreboard', to: '/scoreboard' },
-      { icon: 'flag', title: 'Submit Flag', to: '/submit-flag' },
-      { icon: 'settings', title: 'Settings', to: '/settings' }
-    ],
     miniVariant: true,
     right: true,
     rightDrawer: false,
@@ -290,16 +284,16 @@ export const actions = {
 }
 
 export const getters = {
-  menuItems: state => {
-    return state.app.items.filter( i => {
-
-      if (i.to === '/submit-flag') {
-        return state.status.is_team;
-      }
-
-      return true;
-    });
-  },
+  // menuItems: state => {
+  //   return state.app.items.filter( i => {
+  //
+  //     if (i.to === '/submit-flag') {
+  //       return state.status.is_team;
+  //     }
+  //
+  //     return true;
+  //   });
+  // },
   app: state => ({...state.app}),
   autoRefresh: state => state.settings.autoRefresh,
   theme: state => state.settings.theme,
