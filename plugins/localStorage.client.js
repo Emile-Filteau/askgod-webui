@@ -8,7 +8,8 @@ export default ({store}) => {
         'app.drawer',
         'settings.autoRefresh',
         'settings.theme',
-        'settings.animationEnabled',
+        // FIXME for twitch
+        // 'settings.animationEnabled',
       ]
   })(store)
 }
