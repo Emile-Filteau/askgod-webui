@@ -1,4 +1,3 @@
-import emojiFlags from 'emoji-flags'
 import moment from 'moment';
 
 // Taken from http://htmlcolorcodes.com/color-chart/
@@ -45,7 +44,9 @@ export const state = () => ({
   fireworksDialog: false,
   latestScore: {
     teamName: null,
-    score: null,
+    score: {
+      value: null,
+    },
   },
   settings: {
     autoRefresh: false,
@@ -107,7 +108,6 @@ export const mutations = {
       lastFlag: x.last_submit_time,
       score: x.value,
       color: getTeamColor(x.team.id),
-      flagEmoji: emojiFlags.countryCode(x.team.country).emoji,
     }))
   },
   setStatus (state, data) {

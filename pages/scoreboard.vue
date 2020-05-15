@@ -63,7 +63,7 @@
               <span v-if="!item.website">{{ item.name }}</span>
             </template>
             <template v-slot:item.country="{ item }">
-              <span class="title">{{ item.flagEmoji }}</span>
+              <span class="flag-icon" :class="`flag-icon-${item.country.toLowerCase()}`"></span>
             </template>
             <template v-slot:item.lastFlag="{ item }">
               {{ $moment(item.lastFlag).fromNow() }}

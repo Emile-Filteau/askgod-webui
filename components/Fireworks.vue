@@ -12,7 +12,9 @@
         <v-col v-if="showAnimation">
           <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score.value }} pts</p>
           <p class="text-md-center display-3">{{ latestScore.team.name }}</p>
-          <p class="text-md-center display-3">{{ latestScore.team.flagEmoji }}</p>
+          <p class="text-md-center display-3">
+            <span class="flag-icon" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
+          </p>
         </v-col>
         <!-- <v-col v-else>
           <p class="text-md-center display-3">Waiting score updates!</p>

@@ -62,6 +62,9 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
+  css: [
+     { src: 'flag-icon-css/css/flag-icon.css', lang: 'css' }
+  ],
   mode: 'spa',
   plugins: [
     '~/plugins/localStorage.client.js',
