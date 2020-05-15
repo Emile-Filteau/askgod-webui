@@ -37,7 +37,10 @@ export const state = () => ({
   },
   fireworksDialog: false,
   latestScore: {
-    team: null,
+    team: {
+      name: null,
+      country: null,
+    },
     score: null,
   },
   settings: {

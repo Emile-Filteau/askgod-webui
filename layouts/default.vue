@@ -152,8 +152,24 @@
       fullscreen
       transition="dialog-bottom-transition"
       >
-      <Fireworks/>
+      <Fireworks v-if="animation"/>
     </v-dialog>
+    <v-snackbar
+      v-if="!animation"
+      :timeout="5000"
+      color="success"
+      :multi-line="true"
+      top
+      right
+      v-model="showLatestScore">
+      {{latestScore.team.name}}
+      <strong>+{{latestScore.score}} POINTS</strong>
+      <v-btn
+        text
+        @click.native="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -171,11 +187,18 @@
     data: vm => ({
       dialog: false,
       drawer: null,
-
+      showLatestScore: false,
     }),
     components: {
       Fireworks,
       NorthSecLogo
+    },
+    watch: {
+      latestScore(newVal, oldVal) {
+        this.showLatestScore = true
+        // Hide team score after 5 seconds
+        setTimeout(() => this.showLatestScore = false, 5000)
+      }
     },
     computed: {
       eventName() {
@@ -183,6 +206,7 @@
       },
       ...mapGetters([
         'app',
+        'latestScore',
       ]),
       autoRefresh: {
         get() {
