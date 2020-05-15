@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-layout>
     <v-alert
       :value="askgodUnreachable"
       dismissible
@@ -18,7 +18,7 @@
         :chart-data="timelineChartData"
         :options="timelineChartOptions"/>
     </v-flex>
-  </v-container>
+  </v-layout>
 </template>
 
 
