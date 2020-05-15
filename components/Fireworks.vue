@@ -9,7 +9,7 @@
     </v-toolbar>
     <v-container fill-height fluid class="top-spacing">
       <v-row align="center" justify="center">
-        <v-col v-if="latestScore.score">
+        <v-col v-if="showAnimation">
           <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score.value }} pts</p>
           <p class="text-md-center display-3">{{ latestScore.team.name }}</p>
           <p class="text-md-center display-3">{{ latestScore.team.flagEmoji }}</p>
@@ -20,7 +20,7 @@
             </div>
           </div>
         </v-col>
-        <v-col v-else>
+        <!-- <v-col v-else>
           <p class="text-md-center display-3">Waiting score updates!</p>
           <br/>
           <div class="text-center">
@@ -30,7 +30,7 @@
               indeterminate
             ></v-progress-circular>
           </div>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
 
@@ -41,8 +41,21 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+    return {
+      showAnimation: false,
+    }
+  },
+  watch: {
+    latestScore(newVal, oldVal) {
+      this.showAnimation = true
+      setTimeout(() => this.showAnimation = false, 5000)
+    }
+  },
   mounted() {
-    console.log(this.latestScore)
+    setTimeout(() => {
+
+    }, 5000)
   },
   computed: {
     ...mapGetters([
