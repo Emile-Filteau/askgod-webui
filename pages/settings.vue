@@ -23,7 +23,6 @@
                 v-model="website"
                 :rules="websiteRules"
                 label="Website"
-                required
                 outlined
               ></v-text-field>
 
@@ -32,6 +31,7 @@
                item-text="text"
                label="Country"
                v-model="country"
+               required
                outlined
               ></v-autocomplete>
             </v-form>
@@ -129,7 +129,7 @@ export default {
         v => (v && v.length <= 25) || 'Name must be less than 50 characters',
       ],
       websiteRules: [
-        v => /^(http|https):\/\/[^ "]+$/.test(v) || 'Must be valid a valid URL',
+        v => /^(http|https):\/\/[^ "]+$/.test(v) || v === '' || ' Must be valid a valid URL',
       ],
       countries: COUNTRY_CODES.map(x => ({
         text: x.country_name,
