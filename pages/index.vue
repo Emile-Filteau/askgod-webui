@@ -1,24 +1,26 @@
 <template>
-  <v-layout>
-    <v-alert
-      :value="askgodUnreachable"
-      dismissible
-      prominent
-      color="error"
-      outlined
-      text
-      transition="fade-transition"
-    >
-      <div class="title">Unable to access AskGod</div>
-      <div>Please visit <a target="blank" href="https://askgod.nsec">askgod.nsec</a> and make sure it's reachable.</div>
-    </v-alert>
-    <v-flex>
-      <timeline
-        class="timeline"
-        :chart-data="timelineChartData"
-        :options="timelineChartOptions"/>
-    </v-flex>
-  </v-layout>
+  <v-container fill-height>
+    <v-layout>
+      <v-alert
+        :value="askgodUnreachable"
+        dismissible
+        prominent
+        color="error"
+        outlined
+        text
+        transition="fade-transition"
+      >
+        <div class="title">Unable to access AskGod</div>
+        <div>Please visit <a target="blank" href="https://askgod.nsec">askgod.nsec</a> and make sure it's reachable.</div>
+      </v-alert>
+      <v-flex>
+        <timeline
+          class="timeline"
+          :chart-data="timelineChartData"
+          :options="timelineChartOptions"/>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 

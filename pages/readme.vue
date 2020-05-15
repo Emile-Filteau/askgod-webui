@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row align="start" justify="center">
       <v-col cols="8">
         <h1 class="headline">README</h1>
         <v-alert

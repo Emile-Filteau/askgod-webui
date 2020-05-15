@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <v-row
-      align="start"
+      align="center"
       justify="center"
     >
       <v-col
-        lg="4"
-        cols="sm"
+      cols="12"
+      md="8"
       >
         <v-card>
           <v-card-title primary-title>

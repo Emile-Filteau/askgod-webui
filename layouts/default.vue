@@ -70,7 +70,7 @@
         </v-list-item>
         <v-list-item
           router
-          href="http://twitch.tv/northsec"
+          to="/live-stream"
           exact
         >
           <v-list-item-action>
@@ -145,11 +145,7 @@
     </v-app-bar>
 
     <v-content>
-      <v-container
-        v-bind="{ [`grid-list-xl`]: true }"
-        :fill-height="fillHeight">
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
     <v-dialog
       v-model="animation"

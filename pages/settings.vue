@@ -1,7 +1,13 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        cols="12"
+        md="8"
+      >
         <v-card>
           <v-card-title>Team</v-card-title>
           <v-card-text>
@@ -49,8 +55,14 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        cols="12"
+        md="8"
+      >
         <v-card>
           <v-card-title>Status</v-card-title>
           <v-list subheader>
