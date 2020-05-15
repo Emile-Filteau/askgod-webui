@@ -1,12 +1,12 @@
 <template>
-  <v-layout>
+  <v-container>
     <v-flex>
       <timeline
         class="timeline"
         :chart-data="timelineChartData"
         :options="timelineChartOptions"/>
     </v-flex>
-  </v-layout>
+  </v-container>
 </template>
 
 

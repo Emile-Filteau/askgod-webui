@@ -1,50 +1,55 @@
 <template>
-  <v-layout row>
-    <v-flex
-      xs12
-      sm6
-      offset-sm3>
-      <v-card>
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">Submit a new flag</h3>
-          </div>
-        </v-card-title>
-        <v-card-text>
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-            @submit.prevent="submit">
-            <v-text-field
-              autofocus
-              v-model="flag"
-              :rules="[v => !!v || 'Flag is required']"
-              label="Flag"
-              required/>
+  <v-container>
+    <v-row
+      align="start"
+      justify="center"
+    >
+      <v-col
+        lg="4"
+        cols="sm"
+      >
+        <v-card>
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-0">Submit a new flag</h3>
+            </div>
+          </v-card-title>
+          <v-card-text>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              @submit.prevent="submit">
+              <v-text-field
+                autofocus
+                v-model="flag"
+                :rules="[v => !!v || 'Flag is required']"
+                label="Flag"
+                required/>
+              <v-btn
+                :disabled="disableForm"
+                @click="submit">
+                Submit
+              </v-btn>
+            </v-form>
+          </v-card-text>
+          <v-snackbar
+            :timeout="timeout"
+            :color="color"
+            bottom
+            left
+            v-model="snackbar">
+            {{ text }}
             <v-btn
-              :disabled="disableForm"
-              @click="submit">
-              Submit
+              text
+              @click.native="snackbar = false">
+              Close
             </v-btn>
-          </v-form>
-        </v-card-text>
-        <v-snackbar
-          :timeout="timeout"
-          :color="color"
-          bottom
-          left
-          v-model="snackbar">
-          {{ text }}
-          <v-btn
-            text
-            @click.native="snackbar = false">
-            Close
-          </v-btn>
-        </v-snackbar>
-      </v-card>
-    </v-flex>
-  </v-layout>
+          </v-snackbar>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
