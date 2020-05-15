@@ -42,7 +42,6 @@ export const state = () => ({
     right: true,
     rightDrawer: false,
   },
-
   fireworksDialog: false,
   latestScore: {
     teamName: null,
@@ -139,23 +138,56 @@ export const mutations = {
     console.debug('settings/'+key, state.settings[key]);
   },
   addScore(state, data) {
-    var meta = data.metadata;
-    var index = state.timeline.findIndex(i => i.team.id === meta.teamid);
+    const {score, teamid} = data.metadata;
+    const index = state.timeline.findIndex(i => i.team.id === teamid);
+
     if (index >= 0) {
       // Append new score if team present in dataset
-      state.timeline[index].score.push(meta.score);
+      state.timeline[index].score.push(score);
+    }
+
+    const team = state.scoreboard.find(x => x.id === teamid);
+    if (team) {
+      state.latestScore = {team, score}
+    }
+
+    if (state.settings.animationEnabled) {
+      var filename = null
+      var audio = null
+
+      const AUDIO_SOUND_MAP = {
+        a: 'yes-yes-yes.mp3',
+        b: 'amazing.mp3',
+        c: 'goodjobletsseesomemore.mp3',
+        d: 'security-warning.mp3',
+        e: 'security-alert.mp3',
+        f: 'success.mp3',
+      }
+
+  		if (score.value >= 8) {
+        filename = AUDIO_SOUND_MAP.a
+      } else if (score.value >= 6) {
+        filename = AUDIO_SOUND_MAP.b
+      } else if (score.value === 2) {
+        filename = AUDIO_SOUND_MAP.c
+      } else if (score.value === 0) {
+        filename = Math.random() < 0.5 ?
+          AUDIO_SOUND_MAP.d :
+          AUDIO_SOUND_MAP.e ;
+      } else {
+  			 filename = AUDIO_SOUND_MAP.f
+      }
+
+      try {
+        audio = new Audio(`/announcesounds/${filename}`)
+        audio.play()
+      } catch (err) {
+        console.error(err)
+      }
     }
   },
-  setFireworksDialog(state, data) {
-    if (state.settings.animationEnabled) {
-      state.fireworksDialog = data.show;
-      if (data.score) {
-        state.latestScore = data.score
-      }
-    } else {
-      state.fireworksDialog = false;
-      console.warn('Animation disabled')
-    }
+  showOverlayAnimation(state, data) {
+    state.settings.animationEnabled = data;
   },
   setTeamInfo(state, data) {
     state.myTeam = data;
@@ -218,8 +250,6 @@ export const actions = {
   },
   async WEBSOCKET_EVENT ({ commit, dispatch }, data) {
     commit('addScore', data)
-    setTimeout(() => commit('setFireworksDialog', {show: false}), 3000)
-    commit('setFireworksDialog', {show: true, score: data})
     dispatch('LOAD_SCOREBOARD')
   }
 }
@@ -235,7 +265,7 @@ export const getters = {
       return true;
     });
   },
-  app: state => ({...state.ap}),
+  app: state => ({...state.app}),
   autoRefresh: state => state.settings.autoRefresh,
   theme: state => state.settings.theme,
   top3: state => state.scoreboard.slice(0, 3),

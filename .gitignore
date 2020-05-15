@@ -12,3 +12,4 @@ dist
 
 # Coverage
 .nyc_output
+coverage

@@ -80,7 +80,7 @@
       </v-container>
     </v-content>
     <v-dialog
-      v-model="fireworksDialog"
+      v-model="animation"
       fullscreen
       transition="dialog-bottom-transition"
       >
@@ -148,14 +148,6 @@
             key: 'animationEnabled',
             value: !value,
           });
-        }
-      },
-      fireworksDialog: {
-        get() {
-          return this.$store.state.fireworksDialog;
-        },
-        set() {
-          this.$store.commit('setFireworksDialog', {show: false});
         }
       },
       fillHeight() {

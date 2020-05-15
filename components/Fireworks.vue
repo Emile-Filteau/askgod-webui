@@ -6,22 +6,23 @@
         @click="closeDialog">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-toolbar-title>{{ latestScore.teamName }} scored!</v-toolbar-title>
     </v-toolbar>
-
-    <v-container fill-height fluid>
+    <v-container fill-height fluid class="top-spacing">
       <v-row align="center" justify="center">
         <v-col>
-          <p class="text-md-center display-4">{{ latestScore.score }} PTS</p>
-          <p class="text-md-center display-1">scored by</p>
-          <p class="text-md-center display-4">{{ latestScore.teamName }}</p>
+          <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score.value }} pts</p>
+          <p class="text-md-center display-3">{{ latestScore.team.name }}</p>
+          <p class="text-md-center display-3">{{ latestScore.team.flagEmoji }}</p>
+          <div class="fireworks--wrapper">
+            <div class="pyro">
+              <div class="before"/>
+              <div class="after"/>
+            </div>
+          </div>
         </v-col>
       </v-row>
-      <div class="pyro">
-        <div class="before"/>
-        <div class="after"/>
-      </div>
     </v-container>
+
   </v-card>
 </template>
 
@@ -30,8 +31,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   mounted() {
-    // Auto close dialog after 5 seconds
-    setTimeout(() => this.closeDialog(), 5 * 1000)
+    console.log(this.latestScore)
   },
   computed: {
     ...mapGetters([
@@ -40,13 +40,24 @@ export default {
   },
   methods: {
     closeDialog () {
-      this.$store.commit('setFireworksDialog', {show: false});
+      this.$store.commit('showOverlayAnimation', false);
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.top-spacing {
+  top: 15vh;
+  position: relative;
+}
+
+.fireworks--wrapper {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 /* Source: https://codepen.io/yshlin/pen/ylDEk */
 .theme--dark .card {
   background-color: rgba(33, 33, 33, .98);
