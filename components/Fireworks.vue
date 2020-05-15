@@ -9,7 +9,7 @@
     </v-toolbar>
     <v-container fill-height fluid class="top-spacing">
       <v-row align="center" justify="center">
-        <v-col>
+        <v-col v-if="latestScore.score">
           <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score.value }} pts</p>
           <p class="text-md-center display-3">{{ latestScore.team.name }}</p>
           <p class="text-md-center display-3">{{ latestScore.team.flagEmoji }}</p>
@@ -18,6 +18,17 @@
               <div class="before"/>
               <div class="after"/>
             </div>
+          </div>
+        </v-col>
+        <v-col v-else>
+          <p class="text-md-center display-3">Waiting score updates!</p>
+          <br/>
+          <div class="text-center">
+            <v-progress-circular
+              :size="70"
+              color="primary"
+              indeterminate
+            ></v-progress-circular>
           </div>
         </v-col>
       </v-row>
