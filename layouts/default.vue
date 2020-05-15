@@ -152,22 +152,37 @@
       fullscreen
       transition="dialog-bottom-transition"
       >
-      <Fireworks v-if="animation"/>
+      <v-card>
+        <v-toolbar :flat="true">
+          <v-btn
+            icon
+            @click="closeDialog">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title v-if="!showLatestScore">Waiting score updates...</v-toolbar-title>
+        </v-toolbar>
+        <v-progress-linear
+          v-if="!showLatestScore"
+          indeterminate
+        ></v-progress-linear>
+        <Fireworks v-if="animation"/>
+      </v-card>
     </v-dialog>
     <v-snackbar
       v-if="!animation"
       :timeout="5000"
       color="success"
-      :multi-line="true"
+      multi-line
       top
       right
       v-model="showLatestScore">
-      {{latestScore.team.name}}
-      <strong>+{{latestScore.score}} POINTS</strong>
+      {{latestScore.team.name}} <strong>+{{latestScore.score}} POINTS</strong>
       <v-btn
-        text
-        @click.native="snackbar = false">
-        Close
+        fab
+        x-small
+        outlined
+        @click.native="showLatestScore = false">
+        <v-icon dark>clear</v-icon>
       </v-btn>
     </v-snackbar>
   </v-app>
@@ -198,6 +213,11 @@
         this.showLatestScore = true
         // Hide team score after 5 seconds
         setTimeout(() => this.showLatestScore = false, 5000)
+      }
+    },
+    methods: {
+      closeDialog () {
+        this.$store.commit('showOverlayAnimation', false);
       }
     },
     computed: {
@@ -242,15 +262,15 @@
             value: value,
           });
         }
-      },
-      fillHeight() {
-        return this.$route.name === 'index';
       }
     }
   }
 </script>
 
 <style>
+.notification--score {
+  maring-left: 1rem;
+}
 .sponsors-wrapper {
   padding: 0 2rem;
   text-align: center;

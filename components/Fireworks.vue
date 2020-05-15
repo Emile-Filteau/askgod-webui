@@ -1,39 +1,25 @@
 <template>
-  <v-card>
-    <v-toolbar :flat="true">
-      <v-btn
-        icon
-        @click="closeDialog">
-        <v-icon>close</v-icon>
-      </v-btn>
-      <v-toolbar-title v-if="!showAnimation">Waiting score updates...</v-toolbar-title>
-    </v-toolbar>
-    <v-progress-linear
-      v-if="!showAnimation"
-      indeterminate
-    ></v-progress-linear>
-    <v-container fill-height fluid class="top-spacing">
-      <v-row align="center" justify="center">
-        <v-col v-if="showAnimation">
-          <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score }} pts</p>
-          <p class="text-md-center display-3">
-            <span class="flag-icon flag-icon-squared elevation-4 display-2" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
-            <span>{{ latestScore.team.name }}</span>
-            <span class="flag-icon flag-icon-squared elevation-4 display-2" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
-          </p>
-          <p class="text-md-center">
-            <img :src="imgUrl" />
-          </p>
-        </v-col>
-      </v-row>
-      <div class="fireworks--wrapper" v-if="showAnimation">
-        <div class="pyro">
-          <div class="before"/>
-          <div class="after"/>
-        </div>
+  <v-container fill-height fluid class="top-spacing">
+    <v-row align="center" justify="center">
+      <v-col v-if="showAnimation">
+        <p class="text-md-center display-4 font-weight-bold">{{ latestScore.score }} pts</p>
+        <p class="text-md-center display-3">
+          <span class="flag-icon flag-icon-squared elevation-4 display-2" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
+          <span>{{ latestScore.team.name }}</span>
+          <span class="flag-icon flag-icon-squared elevation-4 display-2" :class="`flag-icon-${latestScore.team.country.toLowerCase()}`"></span>
+        </p>
+        <p class="text-md-center">
+          <img :src="imgUrl" />
+        </p>
+      </v-col>
+    </v-row>
+    <div class="fireworks--wrapper" v-if="showAnimation">
+      <div class="pyro">
+        <div class="before"/>
+        <div class="after"/>
       </div>
-    </v-container>
-  </v-card>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -98,11 +84,6 @@ export default {
       'latestScore',
     ]),
   },
-  methods: {
-    closeDialog () {
-      this.$store.commit('showOverlayAnimation', false);
-    }
-  }
 }
 </script>
 
@@ -114,12 +95,6 @@ export default {
 .flag-icon:last-child {
   margin-left: 1rem;
 }
-
-.top-spacing {
-  top: 10vh;
-  position: relative;
-}
-
 .fireworks--wrapper {
   position: absolute;
   display: block;
