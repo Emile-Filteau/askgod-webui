@@ -31,6 +31,7 @@ const ANIMATION_MAP = {
   c: {audio: 'security-warning.mp3', img: '0pts.gif'},
   d: {audio: 'security-alert.mp3', img: '0pts.gif'},
   e: {audio: 'success.mp3', img: 'default.gif'},
+  f: {audio: 'wow.mp3', img: '2pts.gif'},
 }
 
 export default {
@@ -52,6 +53,9 @@ export default {
       } else if (score >= 6) {
         audio = ANIMATION_MAP.b.audio
         imgUrl = ANIMATION_MAP.b.img
+      } else if (score >= 2) {
+        audio = ANIMATION_MAP.f.audio
+        imgUrl = ANIMATION_MAP.f.img
       } else if (score <= 0) {
         let animation = Math.random() < 0.5 ?
           ANIMATION_MAP.c :
